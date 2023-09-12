@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd029e2f4d6f5948a2c89d5a4b710d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 1500
+  _movementSpeed: 7
   _rigidbody2D: {fileID: 1815074152}
   _camera: {fileID: 2123017356}
 --- !u!50 &1815074152
@@ -760,4 +760,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3486cbc18ec0a843ab98a04540a526f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1815074150}
+  _smoothingSpeed: 5
+  _target: {fileID: 1815074150}
