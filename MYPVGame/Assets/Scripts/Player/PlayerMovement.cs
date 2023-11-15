@@ -21,11 +21,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //_rigidbody2D.AddForce(movementVector * _movementSpeed * Time.fixedDeltaTime);
         _rigidbody2D.velocity = movementVector * _movementSpeed;
 
         Vector2 lookDirection = mousePosition - _rigidbody2D.position;
         float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f;
         _rigidbody2D.rotation = angle;
     }
+
+    public void ChangeMovementSpeed(float speedPoints)
+    {
+        _movementSpeed += speedPoints;
+        if (_movementSpeed < 1)
+            _movementSpeed = 1;
+    }
+
+    public float GetMovementSpeed()
+    {
+        return _movementSpeed;
+    }
+
 }
