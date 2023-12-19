@@ -5,11 +5,6 @@ using UnityEngine;
 public class MeleeEnemy : MonoBehaviour
 {
     [SerializeField] private float _damage;
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnCollisionEnter2D(Collision2D collisionObject)
     {

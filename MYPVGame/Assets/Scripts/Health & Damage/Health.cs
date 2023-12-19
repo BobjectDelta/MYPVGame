@@ -10,6 +10,11 @@ public class Health : MonoBehaviour
     private bool _isInvincible = false;
     [SerializeField] private float _invincibilityTime = 3f;
 
+    private void Start()
+    {
+        if (_health > _maxHealth)
+            _health = _maxHealth;
+    }
     public void TakeDamage(float damage)
     {
         if (!_isInvincible)

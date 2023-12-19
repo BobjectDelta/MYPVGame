@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PowerUp : MonoBehaviour
+public abstract class PowerUp : MonoBehaviour
 {
     private GameObject _powerUpRecipient;
 
@@ -26,8 +26,8 @@ public class PowerUp : MonoBehaviour
         {                     
             if (!_isBuffed || _isOverTime)
                 GrantPowerUp(_powerUpRecipient);
-                _isBuffed = true;
-                _remainingEffectTime -= Time.deltaTime;                  
+            _isBuffed = true;
+            _remainingEffectTime -= Time.deltaTime;                  
         }
         else if (_isBuffed && _remainingEffectTime < 0)
         {

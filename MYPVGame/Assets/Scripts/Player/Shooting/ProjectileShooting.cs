@@ -3,34 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Shooting : MonoBehaviour
+public class ProjectileShooting : Shooting
 {
-    [SerializeField] private Transform _bulletSpawnPoint;
-    [SerializeField] private GameObject _bulletPrefab;
-
     [SerializeField] private float _shootingForce = 20f;
-    [SerializeField] private float _spreadDegrees;
-    [SerializeField] private float _damage = 1f;
     [SerializeField] private float _bulletLifeTime = 1;
-    [SerializeField] private float _fireRateDelay = 0.5f;
     private int _additionalBullets = 0;
-    private float _remainingDelay = 0;
 
-    void Update()
+    public override void Shoot()
     {
-        if (_remainingDelay <= 0)
-        {
-            if (Input.GetButtonDown("Fire1"))
-                Shoot();
-        }
-        else       
-            _remainingDelay -= Time.deltaTime;
-        
-    }
-
-    private void Shoot()
-    {
-        for (int i = 0; i < _additionalBullets+1; i++)
+        if (!_canShoot)
+            return;
+        for (int i = 0; i < _additionalBullets + 1; i++)
         {
             GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
             Rigidbody2D bulletRigidBody2D = bullet.GetComponent<Rigidbody2D>();
@@ -44,32 +27,32 @@ public class Shooting : MonoBehaviour
 
             bulletRigidBody2D.AddForce(bullet.transform.up * _shootingForce, ForceMode2D.Impulse);
         }
-
-        _remainingDelay = _fireRateDelay;
+        StartCoroutine(SetShootAbility());
     }
 
-    public void ChangePlayerBulletDamage(float damagePoints)
+
+    public override void ChangePlayerBulletDamage(float damagePoints)
     {
         _damage += damagePoints;
         if (_damage < 1)
             _damage = 1f;
     }
 
-    public void ChangePlayerFireRate(float fireRatePoints)
+    public override void ChangePlayerFireRate(float fireRatePoints)
     {
         _fireRateDelay += fireRatePoints;
         if (_fireRateDelay <= 0)
             _fireRateDelay = 0.05f;
     }
 
-    public void ChangePlayerSpread(float spreadDegreesPoints)
+    public override void ChangePlayerSpread(float spreadDegreesPoints)
     {
         _spreadDegrees += spreadDegreesPoints;
         if (_spreadDegrees < 0)
-            _fireRateDelay = 0;
+            _spreadDegrees = 0;
     }
 
-    public void ChangePlayerShootingForce(float shootingForcePoints)
+    public override void ChangePlayerShootingForce(float shootingForcePoints)
     {
         _bulletLifeTime *= _shootingForce / (_shootingForce + shootingForcePoints);
         _shootingForce += shootingForcePoints;
@@ -77,7 +60,7 @@ public class Shooting : MonoBehaviour
             _shootingForce = 1;
     }
 
-    public void ChangeAdditionalBulletAmount(int  amount)
+    public override void ChangeAdditionalBulletAmount(int  amount)
     {
         _additionalBullets += amount;
         if (_additionalBullets < 0)
