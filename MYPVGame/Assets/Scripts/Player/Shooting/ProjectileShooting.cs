@@ -15,44 +15,46 @@ public class ProjectileShooting : Shooting
             return;
         for (int i = 0; i < _additionalBullets + 1; i++)
         {
-            GameObject bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, _bulletSpawnPoint.rotation);
-            Rigidbody2D bulletRigidBody2D = bullet.GetComponent<Rigidbody2D>();
+            foreach (var bulletSpawnPoint in _bulletSpawnPoints)
+            {
+                GameObject bullet = Instantiate(_bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+                Rigidbody2D bulletRigidBody2D = bullet.GetComponent<Rigidbody2D>();
 
-            Vector3 bulletSpread = bullet.transform.rotation.eulerAngles;
-            bulletSpread.z += Random.Range(-_spreadDegrees, _spreadDegrees);
-            bullet.transform.rotation = Quaternion.Euler(bulletSpread);
+                Vector3 bulletSpread = bullet.transform.rotation.eulerAngles;
+                bulletSpread.z += Random.Range(-_spreadDegrees, _spreadDegrees);
+                bullet.transform.rotation = Quaternion.Euler(bulletSpread);
 
-            bullet.GetComponent<PlayerBullet>().SetDamage(_damage);
-            bullet.GetComponent<TimedObjectDestruction>().SetLifeTime(_bulletLifeTime);
+                bullet.GetComponent<PlayerBullet>().SetDamage(_damage);
+                bullet.GetComponent<TimedObjectDestruction>().SetLifeTime(_bulletLifeTime);
 
-            bulletRigidBody2D.AddForce(bullet.transform.up * _shootingForce, ForceMode2D.Impulse);
+                bulletRigidBody2D.AddForce(bullet.transform.up * _shootingForce, ForceMode2D.Impulse);
+            }
         }
         StartCoroutine(SetShootAbility());
-    }
+    } 
 
-
-    public override void ChangePlayerBulletDamage(float damagePoints)
+    public override void ChangeBulletDamage(float damagePoints)
     {
         _damage += damagePoints;
         if (_damage < 1)
             _damage = 1f;
     }
 
-    public override void ChangePlayerFireRate(float fireRatePoints)
+    public override void ChangeFireRate(float fireRatePoints)
     {
         _fireRateDelay += fireRatePoints;
         if (_fireRateDelay <= 0)
             _fireRateDelay = 0.05f;
     }
 
-    public override void ChangePlayerSpread(float spreadDegreesPoints)
+    public override void ChangeShootingSpread(float spreadDegreesPoints)
     {
         _spreadDegrees += spreadDegreesPoints;
         if (_spreadDegrees < 0)
             _spreadDegrees = 0;
     }
 
-    public override void ChangePlayerShootingForce(float shootingForcePoints)
+    public override void ChangeShootingForce(float shootingForcePoints)
     {
         _bulletLifeTime *= _shootingForce / (_shootingForce + shootingForcePoints);
         _shootingForce += shootingForcePoints;

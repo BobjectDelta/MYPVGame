@@ -9,13 +9,13 @@ public class DamagePowerUp : PowerUp
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)
-            shooting.ChangePlayerBulletDamage(_damagePoints);
+            shooting.ChangeBulletDamage(_damagePoints);
     }
 
     protected override void RevertPowerUp(GameObject powerUpRecipient)
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)      
-            shooting.ChangePlayerBulletDamage(-_damagePoints);
+            shooting.ChangeBulletDamage(-_damagePoints);
     }
 }

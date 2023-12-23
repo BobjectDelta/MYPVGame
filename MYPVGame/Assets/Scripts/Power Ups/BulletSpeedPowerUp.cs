@@ -9,13 +9,13 @@ public class BulletSpeedPowerUp : PowerUp
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)
-            shooting.ChangePlayerShootingForce(_shootingForcePoints);
+            shooting.ChangeShootingForce(_shootingForcePoints);
     }
 
     protected override void RevertPowerUp(GameObject powerUpRecipient)
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)
-            shooting.ChangePlayerShootingForce(-_shootingForcePoints);
+            shooting.ChangeShootingForce(-_shootingForcePoints);
     }
 }

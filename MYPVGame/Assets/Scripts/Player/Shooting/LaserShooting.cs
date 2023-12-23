@@ -18,31 +18,35 @@ public class LaserShooting : Shooting
 
     private void Update()
     {
-        _shootingDirection = Quaternion.AngleAxis(Random.Range(-_spreadDegrees, _spreadDegrees), Vector3.forward) * _bulletSpawnPoint.up;
+        //_shootingDirection = Quaternion.AngleAxis(Random.Range(-_spreadDegrees, _spreadDegrees), Vector3.forward) * _bulletSpawnPoints[0].up;
     }
     public override void Shoot() 
     {
         if (!_canShoot)
             return;
-        _bulletSpawnPointPosition = _bulletSpawnPoint.position;
-        RaycastHit2D raycastHitInfo = Physics2D.Raycast(_bulletSpawnPointPosition, _shootingDirection, _maxShotDistance);
-        _shotEffect.SetPosition(0, _bulletSpawnPointPosition);
-
-        if (raycastHitInfo)
+        foreach (var bulletSpawnPoint in _bulletSpawnPoints)
         {
-            Health health = raycastHitInfo.transform.GetComponent<Health>();
-            if (!raycastHitInfo.transform.CompareTag("Player") && health != null)
+            _shootingDirection = Quaternion.AngleAxis(Random.Range(-_spreadDegrees, _spreadDegrees), Vector3.forward) * bulletSpawnPoint.up;
+            _bulletSpawnPointPosition = bulletSpawnPoint.position;
+            RaycastHit2D raycastHitInfo = Physics2D.Raycast(_bulletSpawnPointPosition, _shootingDirection, _maxShotDistance);
+            _shotEffect.SetPosition(0, _bulletSpawnPointPosition);
+
+            if (raycastHitInfo)
             {
-                health.TakeDamage(_damage);
+                Health health = raycastHitInfo.transform.GetComponent<Health>();
+                if (!raycastHitInfo.transform.CompareTag("Player") && health != null)
+                {
+                    health.TakeDamage(_damage);
+                }
+
+                //Instantiate(_impactEffect, raycastHitInfo.point, Quaternion.identity);
+                _shotEffect.SetPosition(1, raycastHitInfo.point);
             }
+            else
+                _shotEffect.SetPosition(1, _bulletSpawnPointPosition + _shootingDirection * _maxShotDistance);
 
-            //Instantiate(_impactEffect, raycastHitInfo.point, Quaternion.identity);
-            _shotEffect.SetPosition(1, raycastHitInfo.point);
+            StartCoroutine(DisableShotEffect());
         }
-        else       
-            _shotEffect.SetPosition(1, _bulletSpawnPointPosition + _shootingDirection * _maxShotDistance);
-
-        StartCoroutine(DisableShotEffect());
         StartCoroutine(SetShootAbility());
     }
 

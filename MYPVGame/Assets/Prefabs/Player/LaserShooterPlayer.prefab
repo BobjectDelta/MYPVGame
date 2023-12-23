@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5697147717604001728}
@@ -298,8 +298,8 @@ MonoBehaviour:
   _bulletSpawnPoint: {fileID: 5697147718135053013}
   _bulletPrefab: {fileID: 0}
   _impactEffect: {fileID: 0}
-  _spreadDegrees: 10
-  _damage: 1
+  _spreadDegrees: 5
+  _damage: 2
   _fireRateDelay: 0.1
   _shotEffect: {fileID: 1359737218843957706}
   _maxShotDistance: 5

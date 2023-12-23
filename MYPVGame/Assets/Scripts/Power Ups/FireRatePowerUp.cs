@@ -9,13 +9,13 @@ public class FireRatePowerUp : PowerUp
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)
-            shooting.ChangePlayerFireRate(-_fireRatePoints);
+            shooting.ChangeFireRate(-_fireRatePoints);
     }
 
     protected override void RevertPowerUp(GameObject powerUpRecipient)
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)
-            shooting.ChangePlayerFireRate(_fireRatePoints);
+            shooting.ChangeFireRate(_fireRatePoints);
     }
 }

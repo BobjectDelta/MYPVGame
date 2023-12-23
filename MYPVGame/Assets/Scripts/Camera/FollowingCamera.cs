@@ -9,21 +9,12 @@ public class FollowingCamera : MonoBehaviour
     private Vector3 _velocity = Vector3.zero;
 
     private Vector3 _targetPosition;
-    void Update()
+
+    private void Start()
     {
-        /*if (_target)
-        {
-            _targetPosition = _target.transform.position;
-            _targetPosition.z = -10;
-            float actualSpeed = _target.GetComponent<PlayerMovement>().GetMovementSpeed() - _smoothingSpeed;
-            this.transform.position = Vector3.Lerp(this.transform.position, _targetPosition, actualSpeed * Time.deltaTime);
-        }
-        if (_target != null)
-        {
-            _targetPosition = _target.transform.position;
-            _targetPosition.z = -10;
-            transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _smoothingSpeed);
-        }*/
+        _target = GameObject.FindWithTag("Player");
+        if (_target)
+            transform.position = _target.transform.position;
     }
 
     private void FixedUpdate()

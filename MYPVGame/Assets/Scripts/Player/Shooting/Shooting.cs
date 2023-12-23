@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Shooting : MonoBehaviour
 {
-    [SerializeField] protected Transform _bulletSpawnPoint;
+    [SerializeField] protected List<Transform> _bulletSpawnPoints;
     [SerializeField] protected GameObject _bulletPrefab;
     [SerializeField] protected GameObject _impactEffect;
 
@@ -23,13 +23,13 @@ public abstract class Shooting : MonoBehaviour
         _canShoot = true;
     }
 
-    public virtual void ChangePlayerBulletDamage(float damagePoints) { }
+    public virtual void ChangeBulletDamage(float damagePoints) { }
 
-    public virtual void ChangePlayerFireRate(float fireRatePoints) { }
+    public virtual void ChangeFireRate(float fireRatePoints) { }
 
-    public virtual void ChangePlayerSpread(float spreadDegreesPoints) { }
+    public virtual void ChangeShootingSpread(float spreadDegreesPoints) { }
 
-    public virtual void ChangePlayerShootingForce(float shootingForcePoints) { }
+    public virtual void ChangeShootingForce(float shootingForcePoints) { }
 
     public virtual void ChangeAdditionalBulletAmount(int amount) { }
 }

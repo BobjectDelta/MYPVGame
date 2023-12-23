@@ -11,6 +11,11 @@ public class ShootingInput : MonoBehaviour
 
     Vector2 mousePosition;
 
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
+
     void Update()
     {
         mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);

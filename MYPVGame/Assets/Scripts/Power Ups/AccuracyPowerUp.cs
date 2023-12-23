@@ -9,13 +9,13 @@ public class AccuracyPowerUp : PowerUp
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)
-            shooting.ChangePlayerSpread(-_spreadDegreesPoints);
+            shooting.ChangeShootingSpread(-_spreadDegreesPoints);
     }
 
     protected override void RevertPowerUp(GameObject powerUpRecipient)
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)
-            shooting.ChangePlayerSpread(_spreadDegreesPoints);
+            shooting.ChangeShootingSpread(_spreadDegreesPoints);
     }
 }
