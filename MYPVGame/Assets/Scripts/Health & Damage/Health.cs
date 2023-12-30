@@ -20,6 +20,8 @@ public class Health : MonoBehaviour
         if (!_isInvincible)
         {
             _health -= damage;
+            if (gameObject.CompareTag("Player") && GameManagement.gameManagerInstance != null)
+                GameManagement.gameManagerInstance._healthBar.GetComponent<HealthBar>().SetCurrentValue(_health);
             StartCoroutine(SetInvincibility(_invincibilityTime));
             if (_health <= 0)
             {
@@ -33,6 +35,10 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
+        if (gameObject.CompareTag("Player") && GameManagement.gameManagerInstance != null)
+            GameManagement.gameManagerInstance.GameOver();
+        if (gameObject.GetComponent<DefaultEnemyAI>() != null)
+            gameObject.GetComponent<DefaultEnemyAI>().DoBeforeDestruction();
         Destroy(gameObject);
     }
 
@@ -41,6 +47,8 @@ public class Health : MonoBehaviour
         _health += healAmount;
         if (_health > _maxHealth)        
             _health = _maxHealth;
+        if (gameObject.CompareTag("Player") && GameManagement.gameManagerInstance != null)
+            GameManagement.gameManagerInstance._healthBar.GetComponent<HealthBar>().SetCurrentValue(_health);
         Debug.Log(_health);
     }
 

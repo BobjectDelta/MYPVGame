@@ -9,13 +9,13 @@ public class AdditionalBulletPowerUp : PowerUp
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
         if (shooting != null)      
-            shooting.ChangeAdditionalBulletAmount(_additionalBulletsAmount);
+            shooting.AddAdditionalBullet(_additionalBulletsAmount);
     }
 
     protected override void RevertPowerUp(GameObject powerUpRecipient)
     {
         Shooting shooting = powerUpRecipient.GetComponent<ShootingInput>().GetShootingType();
-        if (shooting != null)        
-            shooting.ChangeAdditionalBulletAmount(-_additionalBulletsAmount);       
+        if (shooting != null)
+            shooting.RemoveAdditionalBullet(_additionalBulletsAmount);
     }
 }

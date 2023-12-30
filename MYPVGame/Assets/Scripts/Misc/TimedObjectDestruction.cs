@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TimedObjectDestruction : MonoBehaviour
 {
-    private float _lifeTime = 1f;
+    [SerializeField] private float _lifeTime = 1f;
 
     private float _elapsedTime = 0f;
 

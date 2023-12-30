@@ -16,13 +16,20 @@ public class RoomFirstLevelGenerator : SimpleRandomWalkLevelGenerator
 
     private List<HashSet<Vector2Int>> _individualRoomsFloors;
 
+    private void Awake()
+    {
+        RunProceduralGeneration();
+    }
     protected override void RunProceduralGeneration()
     {
+        _agentPlacer.Clear();
+        _tilemapVisualizer.Clear();
         CreateRooms();
     }
 
     private void CreateRooms()
     {
+
         var roomsList = ProceduralGenerationAlgorithm.BinarySpacePartitioning(new BoundsInt((Vector3Int)_startPosition,
             new Vector3Int(_levelWidth, _levelHeight, 0)), _minRoomWidth, _minRoomHeight);
 

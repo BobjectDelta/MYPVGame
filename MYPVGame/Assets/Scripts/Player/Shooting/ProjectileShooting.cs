@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class ProjectileShooting : Shooting
 {
+    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private float _shootingForce = 20f;
     [SerializeField] private float _bulletLifeTime = 1;
     private int _additionalBullets = 0;
@@ -24,10 +25,11 @@ public class ProjectileShooting : Shooting
                 bulletSpread.z += Random.Range(-_spreadDegrees, _spreadDegrees);
                 bullet.transform.rotation = Quaternion.Euler(bulletSpread);
 
-                bullet.GetComponent<PlayerBullet>().SetDamage(_damage);
+                bullet.GetComponent<Bullet>().SetDamage(_damage);
                 bullet.GetComponent<TimedObjectDestruction>().SetLifeTime(_bulletLifeTime);
 
                 bulletRigidBody2D.AddForce(bullet.transform.up * _shootingForce, ForceMode2D.Impulse);
+                Instantiate(_soundEffect, transform.position, Quaternion.identity, null);
             }
         }
         StartCoroutine(SetShootAbility());
@@ -62,10 +64,29 @@ public class ProjectileShooting : Shooting
             _shootingForce = 1;
     }
 
-    public override void ChangeAdditionalBulletAmount(int  amount)
+    //public override void ChangeAdditionalBulletAmount(int  amount)
+    //{
+    //    _additionalBullets += amount;
+    //    if (_additionalBullets < 0)
+    //        _additionalBullets = 0;
+    //}
+
+    public override void AddAdditionalBullet(int amount)
     {
         _additionalBullets += amount;
         if (_additionalBullets < 0)
             _additionalBullets = 0;
+    }
+
+    public override void RemoveAdditionalBullet(int amount) 
+    {
+        _additionalBullets -= amount;
+        if (_additionalBullets < 0)
+            _additionalBullets = 0;
+    }
+
+    public int GetAdditionalBulletAmount()
+    {
+        return _additionalBullets;
     }
 }

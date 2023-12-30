@@ -12,9 +12,8 @@ public class FollowingCamera : MonoBehaviour
 
     private void Start()
     {
-        _target = GameObject.FindWithTag("Player");
-        if (_target)
-            transform.position = _target.transform.position;
+        //_target = GameObject.FindWithTag("Player");
+        //_target = GameManagement.gameManagerInstance.player;              
     }
 
     private void FixedUpdate()
@@ -25,5 +24,12 @@ public class FollowingCamera : MonoBehaviour
             _targetPosition.z = -10;
             transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _smoothingSpeed);
         }
+    }
+    
+    public void SetTarget(GameObject target)
+    {
+        _target = target;
+        if (_target)
+            transform.position = _target.transform.position;
     }
 }

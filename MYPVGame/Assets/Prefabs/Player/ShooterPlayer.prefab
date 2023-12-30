@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 5697147717317841431}
   - component: {fileID: 5697147717317841437}
   - component: {fileID: 7478173941594358563}
-  m_Layer: 0
+  - component: {fileID: 8783452664802926514}
+  - component: {fileID: 6007086520565016630}
+  m_Layer: 10
   m_Name: ShooterPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -196,6 +198,35 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 5697147717317841426}
   _camera: {fileID: 0}
   _shootingType: {fileID: 143559865782745913}
+--- !u!114 &8783452664802926514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697147717317841436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddd7a50ee44ae046a481b436cecb4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ability: {fileID: 6007086520565016630}
+  _abilityButton: {fileID: 0}
+--- !u!114 &6007086520565016630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697147717317841436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 237aba1e40c5e18408a6b8b72c36d1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rechargeTime: 20
+  _effectTime: 3
+  _powerUp: {fileID: 5306121167398939850, guid: 0da3ec3bf68857143b44ac4feb136441, type: 3}
 --- !u!1 &5697147717604001731
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,12 +325,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d18130035993641ab7b58919889da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpawnPoint: {fileID: 5697147718135053013}
-  _bulletPrefab: {fileID: 7573879527320318496, guid: 788a3fdc65e5d7e4ca48e07a8ef0b24e, type: 3}
-  _impactEffect: {fileID: 0}
-  _spreadDegrees: 15
+  _bulletSpawnPoints:
+  - {fileID: 5697147718135053013}
+  _soundEffect: {fileID: 7876445225036306972, guid: 6ed8284c353520a4e81aedefa565db1a, type: 3}
+  _spreadDegrees: 10
   _damage: 5
-  _fireRateDelay: 0.4
+  _fireRateDelay: 0.5
+  _bulletPrefab: {fileID: 7573879527320318496, guid: 788a3fdc65e5d7e4ca48e07a8ef0b24e, type: 3}
   _shootingForce: 20
   _bulletLifeTime: 1
 --- !u!1 &5697147718135053012

@@ -54,5 +54,10 @@ public abstract class PowerUp : MonoBehaviour
     protected virtual void GrantPowerUp(GameObject powerUpRecipient) { }
     protected virtual void RevertPowerUp(GameObject powerUpRecipient) { }
 
+    public virtual void SetEffectTime(float time)
+    {
+        _effectTime = time;
+    }
+
 
 }

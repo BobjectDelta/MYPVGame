@@ -15,7 +15,9 @@ GameObject:
   - component: {fileID: 5697147717317841437}
   - component: {fileID: 5697147717317841431}
   - component: {fileID: 2171862458625983821}
-  m_Layer: 0
+  - component: {fileID: 2725204833683211723}
+  - component: {fileID: 5031386554062225486}
+  m_Layer: 10
   m_Name: LaserShooterPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -164,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd029e2f4d6f5948a2c89d5a4b710d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 4
+  _movementSpeed: 5
   _rigidbody2D: {fileID: 5697147717317841426}
 --- !u!114 &5697147717317841431
 MonoBehaviour:
@@ -178,8 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a3f92b68e104943819339f86d30fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 50
-  _maxHealth: 50
+  _health: 70
+  _maxHealth: 70
   _invincibilityTime: 1
 --- !u!114 &2171862458625983821
 MonoBehaviour:
@@ -196,6 +198,34 @@ MonoBehaviour:
   _rigidbody2D: {fileID: 5697147717317841426}
   _camera: {fileID: 0}
   _shootingType: {fileID: 8978890746576058230}
+--- !u!114 &2725204833683211723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697147717317841436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dddd7a50ee44ae046a481b436cecb4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ability: {fileID: 5031386554062225486}
+  _abilityButton: {fileID: 0}
+--- !u!114 &5031386554062225486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5697147717317841436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c8916aeaec5a548a913b97750d81bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rechargeTime: 20
+  _minePrefab: {fileID: 1254270617327077816, guid: e68bba76bab5da64fa87b1ed50faf23e, type: 3}
 --- !u!1 &5697147717604001731
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,9 +325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23acd05b217707a438eac39c5c635f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpawnPoint: {fileID: 5697147718135053013}
-  _bulletPrefab: {fileID: 0}
-  _impactEffect: {fileID: 0}
+  _bulletSpawnPoints:
+  - {fileID: 5697147718135053013}
+  _soundEffect: {fileID: 7876445225036306972, guid: 6ed8284c353520a4e81aedefa565db1a, type: 3}
   _spreadDegrees: 5
   _damage: 2
   _fireRateDelay: 0.1
@@ -408,7 +438,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}

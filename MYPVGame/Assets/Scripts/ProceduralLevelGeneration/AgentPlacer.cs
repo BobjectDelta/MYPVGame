@@ -6,7 +6,7 @@ using UnityEngine;
 public class AgentPlacer : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _enemyPrefabs;
-    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private GameObject[] _playerPrefabs;
     [SerializeField][Range(1, 10)] private int _maxEnemiesPerRoom;
 
     private int _playerRoomIndex;
@@ -19,12 +19,14 @@ public class AgentPlacer : MonoBehaviour
         _playerRoomIndex = Random.Range(0, rooms.Count);
         if (!_enemyHolder)
             _enemyHolder = new GameObject("EnemyHolder");
+        GameObject chosenPlayerPrefab = _playerPrefabs[PlayerPrefs.GetInt("selectedCharacterIndex")];
+        Debug.Log(PlayerPrefs.GetInt("selectedCharacterIndex"));
 
         for (int i = 0; i < rooms.Count; i++)
         {
             if (i == _playerRoomIndex)
             {
-                GameObject player = Instantiate(_playerPrefab);
+                GameObject player = Instantiate(chosenPlayerPrefab);
                 player.transform.localPosition = rooms[i].center;
                 _levelAgents.Add(player);
             }
@@ -58,7 +60,13 @@ public class AgentPlacer : MonoBehaviour
 
     public void Clear()
     {
-        foreach (var agent in _levelAgents)        
-            DestroyImmediate(agent);       
+        //foreach (var agent in _levelAgents)        
+        //    DestroyImmediate(agent);     
+        //DestroyImmediate(_enemyHolder);
+        foreach (var agent in _levelAgents)
+            Destroy(agent);
+        //GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //if (player != null)
+        //    Destroy(player);
     }
 }

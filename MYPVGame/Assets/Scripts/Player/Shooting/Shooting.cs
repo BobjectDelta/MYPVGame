@@ -5,9 +5,7 @@ using UnityEngine;
 public abstract class Shooting : MonoBehaviour
 {
     [SerializeField] protected List<Transform> _bulletSpawnPoints;
-    [SerializeField] protected GameObject _bulletPrefab;
-    [SerializeField] protected GameObject _impactEffect;
-
+    [SerializeField] protected GameObject _soundEffect;
     [SerializeField] protected float _spreadDegrees;
     [SerializeField] protected float _damage = 1f;
     [SerializeField] protected float _fireRateDelay;
@@ -31,5 +29,7 @@ public abstract class Shooting : MonoBehaviour
 
     public virtual void ChangeShootingForce(float shootingForcePoints) { }
 
-    public virtual void ChangeAdditionalBulletAmount(int amount) { }
+    public virtual void AddAdditionalBullet(int amount) { }
+
+    public virtual void RemoveAdditionalBullet(int amount) { }
 }

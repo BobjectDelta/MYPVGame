@@ -6,7 +6,7 @@ public class LaserShooting : Shooting
 {
     [SerializeField] private LineRenderer _shotEffect;
     [SerializeField] private float _maxShotDistance = 1;
-    [SerializeField] private float _shotEffectTime = 0.5f;
+    [SerializeField] private float _shotEffectTime = 0.1f;
 
     private Vector3 _shootingDirection;
     private Vector3 _bulletSpawnPointPosition;
@@ -14,11 +14,6 @@ public class LaserShooting : Shooting
     private void Awake()
     {
         _shotEffect.enabled = false;
-    }
-
-    private void Update()
-    {
-        //_shootingDirection = Quaternion.AngleAxis(Random.Range(-_spreadDegrees, _spreadDegrees), Vector3.forward) * _bulletSpawnPoints[0].up;
     }
     public override void Shoot() 
     {
@@ -44,6 +39,7 @@ public class LaserShooting : Shooting
             }
             else
                 _shotEffect.SetPosition(1, _bulletSpawnPointPosition + _shootingDirection * _maxShotDistance);
+            Instantiate(_soundEffect, transform.position, Quaternion.identity, null);
 
             StartCoroutine(DisableShotEffect());
         }
