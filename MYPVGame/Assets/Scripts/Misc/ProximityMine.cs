@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProximityMine : MonoBehaviour
 {
     [SerializeField] private float _damage;
+    [SerializeField] private GameObject _explosionEffect;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -13,7 +14,7 @@ public class ProximityMine : MonoBehaviour
             if (collider.CompareTag("Enemy") && collider.TryGetComponent<Health>(out Health health))
             {
                 health.TakeDamage(_damage);
-                //
+                Instantiate(_explosionEffect, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }                    
     }

@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 6
   _rigidbody2D: {fileID: 5697147717317841426}
+  _movementJoystick: {fileID: 0}
 --- !u!114 &7478173941594358563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 5697147717317841426}
   _camera: {fileID: 0}
+  _shootingJoystick: {fileID: 0}
   _shootingType: {fileID: 143559865782745913}
 --- !u!114 &8783452664802926514
 MonoBehaviour:
@@ -359,7 +361,7 @@ Transform:
   m_GameObject: {fileID: 5697147718135053012}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.402, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

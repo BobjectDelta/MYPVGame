@@ -80,7 +80,8 @@ public class ProjectileShooting : Shooting
 
     public override void RemoveAdditionalBullet(int amount) 
     {
-        _additionalBullets -= amount;
+        if (_additionalBullets != 0)
+            _additionalBullets -= amount;
         if (_additionalBullets < 0)
             _additionalBullets = 0;
     }

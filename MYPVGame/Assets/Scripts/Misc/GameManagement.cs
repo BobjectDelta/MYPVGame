@@ -13,8 +13,11 @@ public class GameManagement : MonoBehaviour
     [SerializeField] private GameObject _pauseMenu;
     [SerializeField] private GameObject _winMenu;
     [SerializeField] private GameObject _gameOverMenu;
+    [SerializeField] private GameObject _movementJoystick;
+    [SerializeField] private GameObject _shootingJoystick;
 
-    private int _enemiesToDefeat;
+
+    private int _enemiesToDefeat = 0;
     private bool _isPaused = false;
 
     private void Awake()
@@ -29,10 +32,10 @@ public class GameManagement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         Time.timeScale = 1;
-        _pauseMenu.SetActive(false);
-        _winMenu.SetActive(false);
-        _gameOverMenu.SetActive(false);
-        _pauseButton.SetActive(true);
+        player.GetComponent<ShootingInput>().SetShootingJoystick(_shootingJoystick);
+        player.GetComponent<PlayerMovement>().SetMovementJoystick(_movementJoystick);
+        SetActiveMenuElements(false);
+        SetActiveGameElements(true);
         SetInitialEnemyCount();
     }
 
@@ -58,8 +61,7 @@ public class GameManagement : MonoBehaviour
 
     private void Pause()
     {
-        _pauseButton.SetActive(false);
-        _abilityButton.SetActive(false);
+        SetActiveGameElements(false);
         Time.timeScale = 0;
         _pauseMenu.SetActive(true);
         _isPaused = true;
@@ -70,16 +72,13 @@ public class GameManagement : MonoBehaviour
         _pauseMenu.SetActive(false);
         Time.timeScale = 1;
         _isPaused = false;
-        _pauseButton.SetActive(true);
-        _abilityButton.SetActive(true);
+        SetActiveGameElements(true);
     }
 
     private void Win()
     {
         player.SetActive(false);
-        _pauseButton.SetActive(false);
-        _abilityButton.SetActive(false);
-        _pauseMenu.SetActive(false);
+        SetActiveGameElements(false);
         _winMenu.SetActive(true);
     }
 
@@ -87,9 +86,23 @@ public class GameManagement : MonoBehaviour
     {
         Time.timeScale = 0;
         _pauseMenu.SetActive(false);
-        _pauseButton.SetActive(false);
-        _abilityButton.SetActive(false);
+        SetActiveGameElements(false);
         _gameOverMenu.SetActive(true);
     }
 
+    public void SetActiveGameElements(bool active)
+    {
+        _pauseButton.SetActive(active);
+        _healthBar.SetActive(active);
+        _abilityButton.SetActive(active);
+        _movementJoystick.SetActive(active);
+        _shootingJoystick.SetActive(active);
+    }
+
+    public void SetActiveMenuElements(bool active)
+    {
+        _pauseMenu.SetActive(active);
+        _winMenu.SetActive(active);
+        _gameOverMenu.SetActive(active);
+    }
 }

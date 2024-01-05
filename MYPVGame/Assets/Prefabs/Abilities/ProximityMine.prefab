@@ -134,4 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 20
-  _detonationTime: 2
+  _explosionEffect: {fileID: 1761585689091906699, guid: 5a56e7e47e29e5649a948df8a2ba4447, type: 3}
