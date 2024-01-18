@@ -7,8 +7,10 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
-    private bool _isInvincible = false;
+    [SerializeField] private bool _isInvincible = false;
     [SerializeField] private float _invincibilityTime = 3f;
+
+    private IEnumerator _invincibilitycoroutine;
 
     private void Start()
     {
@@ -17,12 +19,14 @@ public class Health : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
+        Debug.Log(_isInvincible);
         if (!_isInvincible)
         {
             _health -= damage;
             if (gameObject.CompareTag("Player") && GameManagement.gameManagerInstance != null)
                 GameManagement.gameManagerInstance._healthBar.GetComponent<HealthBar>().SetCurrentValue(_health);
-            StartCoroutine(SetInvincibility(_invincibilityTime));
+            _invincibilitycoroutine = SetInvincibility(_invincibilityTime);
+            StartCoroutine(_invincibilitycoroutine);
             if (_health <= 0)
             {
                 _health = 0;
@@ -31,6 +35,8 @@ public class Health : MonoBehaviour
             }
             Debug.Log(_health);
         }
+        //else
+            //Debug.Log("no dmg");
     }
 
     private void Die()
@@ -52,15 +58,30 @@ public class Health : MonoBehaviour
         Debug.Log(_health);
     }
 
-    public IEnumerator SetInvincibility(float  invincibilityTime)
+    public IEnumerator SetInvincibility(float invincibilityTime)
     {
+        Debug.Log("Coroutine started");
+
         _isInvincible = true;
         yield return new WaitForSeconds(invincibilityTime);
         _isInvincible = false;
+        Debug.Log("Coroutine ended");
+    }
+
+    public void StopInvincibilityCoroutine()
+    {
+        StopCoroutine(_invincibilitycoroutine);
+        _isInvincible = false;
+        Debug.Log("Coroutine stopped");
     }
 
     public float GetHealth()
     {
         return _health;
+    }
+
+    public bool GetIsInvincible()
+    {
+        return _isInvincible;
     }
 }

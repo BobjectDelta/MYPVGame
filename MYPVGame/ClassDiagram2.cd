@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Joystick" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACABACIACRICAAEACBAASICAAEAADAKAQQCCAEAIAA=</HashCode>
+      <FileName>Assets\Joystick Pack\Scripts\Base\Joystick.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DynamicJoystick" Collapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAACAACAIAAAAAAAAAAAAAAAAAgAAAAIAAAAAAAA=</HashCode>
+      <FileName>Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FixedJoystick" Collapsed="true">
+    <Position X="3" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FloatingJoystick" Collapsed="true">
+    <Position X="5.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VariableJoystick" Collapsed="true">
+    <Position X="7.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAKAACAIAgAAAAAAAAAAAAAAAgAAACIAAAAAAAA=</HashCode>
+      <FileName>Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FollowingCamera" Collapsed="true">
+    <Position X="26.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAgIAAAAAAAAAAAAAQAAAAAAgAAAAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Camera\FollowingCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AIBehaviour" Collapsed="true">
+    <Position X="1.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AI\AIBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AIChaseBehaviour" Collapsed="true">
+    <Position X="0.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAgIAACABAAAAAAAAAAAAAAAAAAAAACAAAMA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AI\AIChaseBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AIDetector" Collapsed="true">
+    <Position X="26.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAGAACgAAAAEAAAAACBCQAAABGAQAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AI\AIDetector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AIShootBehaviour" Collapsed="true">
+    <Position X="2.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AI\AIShootBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefaultEnemyAI" Collapsed="true">
+    <Position X="28.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEgAAAAAAAAAAAgAAAAAAAAIBAAQAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AI\DefaultEnemyAI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DealDamageOnCollision" Collapsed="true">
+    <Position X="31.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\DealDamageOnCollision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DropPowerUpOnDestruction" Collapsed="true">
+    <Position X="30" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAEAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\DropPowerUpOnDestruction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Health" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAACEAAACgAAAAABAAAAACAAACAAAAgCAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Health &amp; Damage\Health.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManagement" Collapsed="true">
+    <Position X="19.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwwAIAACAAAgAAIEAAAAAAEBACQgEBAAIABAgACMA=</HashCode>
+      <FileName>Assets\Scripts\Misc\GameManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProximityMine" Collapsed="true">
+    <Position X="30" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Misc\ProximityMine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectCharacter" Collapsed="true">
+    <Position X="23" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAiAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Misc\SelectCharacter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TimedObjectDestruction" Collapsed="true">
+    <Position X="28.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAQAQ=</HashCode>
+      <FileName>Assets\Scripts\Misc\TimedObjectDestruction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbilityInput" Collapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQCAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Abilities\AbilityInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractAbility" Collapsed="true">
+    <Position X="6.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAACAAAAAAAAAAAAAIAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Abilities\AbstractAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PowerUpBasedAbility" Collapsed="true">
+    <Position X="5.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Abilities\PowerUpBasedAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProximityMineAbility" Collapsed="true">
+    <Position X="7.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Abilities\ProximityMineAbility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerMovement" Collapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAIAiAAAAAAAAAAAABAAgAEQIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\PlayerMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LaserShooting" Collapsed="true">
+    <Position X="5.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQBAAAAAAAAABAQAAAAAAAAAAAAAAAAAQABAAAAABEA=</HashCode>
+      <FileName>Assets\Scripts\Player\Shooting\LaserShooting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileShooting" Collapsed="true">
+    <Position X="7.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQAAAAAABlAAAAAAAAAAACACBAIAABAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Player\Shooting\ProjectileShooting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shooting" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CEAAAAFAAAAABhAAAAAAAAAAACBCAAIAEAAAAABAAIA=</HashCode>
+      <FileName>Assets\Scripts\Player\Shooting\Shooting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShootingInput" Collapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYQAAAIAiAAAgAAAQAAAAAAAAAAIAQAAAgAACBAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Shooting\ShootingInput.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AccuracyPowerUp" Collapsed="true">
+    <Position X="12.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAIAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\AccuracyPowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdditionalBulletPowerUp" Collapsed="true">
+    <Position X="14.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAABAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\AdditionalBulletPowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletSpeedPowerUp" Collapsed="true">
+    <Position X="17" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\BulletSpeedPowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DamagePowerUp" Collapsed="true">
+    <Position X="1.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\DamagePowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FireRatePowerUp" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\FireRatePowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealingPowerUp" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAIABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\HealingPowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InvincibilityPowerUp" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\InvincibilityPowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MovementSpeedPowerUp" Collapsed="true">
+    <Position X="10.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\MovementSpeedPowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PowerUp" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAAAQCAEAAAAAAAAAAAAAEAABAAAgAABAIAAAKA=</HashCode>
+      <FileName>Assets\Scripts\Power Ups\PowerUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractLevelGenerator" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAASAAAAAAAAABAAAAACAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\AbstractLevelGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AgentPlacer" Collapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAAAAAAAIAAAAAAABEAAAAAAAAAAAgBAASg=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\AgentPlacer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CorridorFirstLevelGenerator" Collapsed="true">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAABAAAABAAQAAAEAIAIAAAAAAAAAAAAII=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\CorridorFirstLevelGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Direction2D" Collapsed="true">
+    <Position X="19.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\Direction2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProceduralGenerationAlgorithm" Collapsed="true">
+    <Position X="21.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgBAAAgAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\ProceduralGenerationAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RoomFirstLevelGenerator" Collapsed="true">
+    <Position X="2.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMAACAAAACAAAAAIAAIQAAAESAAIAAgAAAAAQAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\RoomFirstLevelGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleRandomWalkLevelGenerator" Collapsed="true">
+    <Position X="1.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAAQAA=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\SimpleRandomWalkLevelGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TilemapVisualizer" Collapsed="true">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAIAAAAAAAAAAAAAAAAgAgAAgAAABDEAAA=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\Visual\TilemapVisualizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WallGenerator" Collapsed="true">
+    <Position X="23" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\ProceduralLevelGeneration\WallGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Bullet" Collapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAADAAAAAAAAAAAAAIAACAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Projectiles\Bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimpleRandomWalkSO" Collapsed="true">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAgAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Scriptable Objects\SimpleRandomWalkSO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExitGame" Collapsed="true">
+    <Position X="24.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\ExitGame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthBar" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAGkAAAAAAIAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\HealthBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneLoad" Collapsed="true">
+    <Position X="21.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\SceneLoad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="AxisOptions" Collapsed="true">
+    <Position X="19.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Joystick Pack\Scripts\Base\Joystick.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="JoystickType" Collapsed="true">
+    <Position X="21.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAEAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

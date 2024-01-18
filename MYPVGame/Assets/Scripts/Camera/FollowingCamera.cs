@@ -10,12 +10,6 @@ public class FollowingCamera : MonoBehaviour
 
     private Vector3 _targetPosition;
 
-    private void Start()
-    {
-        //_target = GameObject.FindWithTag("Player");
-        //_target = GameManagement.gameManagerInstance.player;              
-    }
-
     private void FixedUpdate()
     {
         if (_target != null)

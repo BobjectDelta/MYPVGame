@@ -306,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 4
   _rigidbody2D: {fileID: 3085339068626609759}
+  _movementJoystick: {fileID: 0}
 --- !u!114 &1228568700540527001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3085339068626609759}
   _camera: {fileID: 0}
+  _shootingJoystick: {fileID: 0}
   _shootingType: {fileID: 7081099954863321605}
 --- !u!114 &3878328144232547587
 MonoBehaviour:
@@ -363,5 +365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rechargeTime: 20
-  _effectTime: 7
+  _effectTime: 10
   _powerUp: {fileID: 5306121167398939850, guid: 4606e05be87e61d4db2c9742aa5f476c, type: 3}
+  _playerEffect: {fileID: 3642536379039214830, guid: 792e1055291ce154495e2fe70f543d02, type: 3}

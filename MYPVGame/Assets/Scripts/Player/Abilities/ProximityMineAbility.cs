@@ -11,10 +11,7 @@ public class ProximityMineAbility : AbstractAbility
         if (_canActivate)
         {
             Instantiate(_minePrefab, transform.position, Quaternion.identity);
-            Debug.Log("mine");
             StartCoroutine(SetActivationAbility());
         }
-        else
-            Debug.Log("no mine");
     }
 }
