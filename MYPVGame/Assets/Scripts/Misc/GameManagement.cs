@@ -32,8 +32,8 @@ public class GameManagement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         Time.timeScale = 1;
-        player.GetComponent<ShootingInput>().SetShootingJoystick(_shootingJoystick);
-        player.GetComponent<PlayerMovement>().SetMovementJoystick(_movementJoystick);
+        //player.GetComponent<ShootingInput>().SetShootingJoystick(_shootingJoystick);
+        //player.GetComponent<PlayerMovement>().SetMovementJoystick(_movementJoystick);
         SetActiveMenuElements(false);
         SetActiveGameElements(true);
         SetInitialEnemyCount();
