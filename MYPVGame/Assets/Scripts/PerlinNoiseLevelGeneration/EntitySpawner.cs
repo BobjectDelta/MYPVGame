@@ -57,7 +57,7 @@ public class EntitySpawner : MonoBehaviour
         for (int i = 0; i < radius; i++)
         {
             foreach (Vector2Int direction in directions)
-                coords.Remove(direction * (i + 1));
+                coords.Remove(coord + direction * (i + 1));
         }      
     }
 
