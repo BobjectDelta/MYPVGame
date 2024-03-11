@@ -6,14 +6,13 @@ using UnityEngine;
 
 public class NoiseFloorGenerator : MonoBehaviour
 {
-    //
-    public int width = 32;
-    public int height = 32;
+    [SerializeField] private int width = 32;
+    [SerializeField] private int height = 32;
 
-    public float scale = 3;
+    [SerializeField] private float scale = 3;
 
-    public float offsetX = 100f;
-    public float offsetY = 100f;
+    [SerializeField] private float offsetX = 100f;
+    [SerializeField] private float offsetY = 100f;
 
     public HashSet<Vector2Int> GenerateNewLevelFloor()
     {
