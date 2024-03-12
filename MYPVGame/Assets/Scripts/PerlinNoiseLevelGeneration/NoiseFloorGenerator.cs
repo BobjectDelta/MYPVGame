@@ -11,8 +11,8 @@ public class NoiseFloorGenerator : MonoBehaviour
 
     [SerializeField] private float scale = 3;
 
-    [SerializeField] private float offsetX = 100f;
-    [SerializeField] private float offsetY = 100f;
+    [SerializeField] private float offsetX = 10f;
+    [SerializeField] private float offsetY = 10f;
 
     public HashSet<Vector2Int> GenerateNewLevelFloor()
     {
