@@ -21,7 +21,7 @@ public class EntitySpawner : MonoBehaviour
         
         HashSet<Vector2Int> spawnTiles = levelFloor;
         int enemyCount = Mathf.RoundToInt(Mathf.Sqrt(spawnTiles.Count));
-        int enemyRadius = 2;//Mathf.RoundToInt(Mathf.Pow(enemyCount, 0.25f));
+        int enemyRadius = Mathf.RoundToInt(Mathf.Pow(enemyCount, 0.25f));
         Debug.Log(spawnTiles.Count);
 
         SpawnPlayer(spawnTiles);

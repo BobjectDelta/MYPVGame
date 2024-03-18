@@ -36,7 +36,7 @@ public class GameManagement : MonoBehaviour
 
     private void SetInitialEnemyCount()
     {
-        _enemiesToDefeat = FindObjectsOfType<DefaultEnemyAI>().Length;
+        _enemiesToDefeat = FindObjectsOfType<EnemyAI>().Length;
     }
 
     public void DecrementEnemiesToDefeat()

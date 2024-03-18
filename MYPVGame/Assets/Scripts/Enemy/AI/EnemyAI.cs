@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DefaultEnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private EnemyBehaviour _shootBehaviour;
     [SerializeField] private EnemyBehaviour _chaseBehaviour;
