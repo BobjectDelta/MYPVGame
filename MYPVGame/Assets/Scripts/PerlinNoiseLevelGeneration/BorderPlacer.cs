@@ -6,7 +6,7 @@ public static class BorderPlacer
 {
     public static void PlaceBorders(HashSet<Vector2Int> floorPositions, TilePainter tilePainter)
     {
-        HashSet<Vector2Int> basicWallPositions = SearchForBorders(floorPositions, Direction2D.cardinalDirections);
+        HashSet<Vector2Int> basicWallPositions = SearchForBorders(floorPositions, Direction2D.directions);
 
         foreach (Vector2Int position in basicWallPositions)
         {
