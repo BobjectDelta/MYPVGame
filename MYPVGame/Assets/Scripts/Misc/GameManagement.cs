@@ -7,14 +7,8 @@ public class GameManagement : MonoBehaviour
 {
     public static GameManagement gameManagerInstance = null;
     [SerializeField] public GameObject player = null;
-    [SerializeField] private GameObject _pauseButton;
-    [SerializeField] public GameObject _healthBar;
-    [SerializeField] private GameObject _abilityButton;
-    [SerializeField] private GameObject _pauseMenu;
-    [SerializeField] private GameObject _winMenu;
-    [SerializeField] private GameObject _gameOverMenu;
-    [SerializeField] private GameObject _movementJoystick;
-    [SerializeField] private GameObject _shootingJoystick;
+
+    private UIManagement _uiManager;
 
 
     private int _enemiesToDefeat = 0;
@@ -32,10 +26,11 @@ public class GameManagement : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         Time.timeScale = 1;
-        //player.GetComponent<ShootingInput>().SetShootingJoystick(_shootingJoystick);
-        //player.GetComponent<PlayerMovement>().SetMovementJoystick(_movementJoystick);
-        SetActiveMenuElements(false);
-        SetActiveGameElements(true);
+
+        _uiManager = UIManagement.uiManagerInstance;
+        _uiManager.SetActiveMenuElements(false);
+        _uiManager.SetActiveGameElements(true);
+
         SetInitialEnemyCount();
     }
 
@@ -61,48 +56,28 @@ public class GameManagement : MonoBehaviour
 
     private void Pause()
     {
-        SetActiveGameElements(false);
         Time.timeScale = 0;
-        _pauseMenu.SetActive(true);
         _isPaused = true;
+        _uiManager.DisplayPauseUI(_isPaused);
     }
 
     private void Resume()
     {
-        _pauseMenu.SetActive(false);
         Time.timeScale = 1;
         _isPaused = false;
-        SetActiveGameElements(true);
+        _uiManager.DisplayPauseUI(_isPaused);
     }
 
     private void Win()
     {
-        player.SetActive(false);
-        SetActiveGameElements(false);
-        _winMenu.SetActive(true);
+        Time.timeScale = 0;
+        _uiManager.DisplayWinUI();
     }
 
     public void GameOver()
     {
         Time.timeScale = 0;
-        _pauseMenu.SetActive(false);
-        SetActiveGameElements(false);
-        _gameOverMenu.SetActive(true);
+        _uiManager.DisplayGameOverUI();
     }
 
-    public void SetActiveGameElements(bool active)
-    {
-        _pauseButton.SetActive(active);
-        _healthBar.SetActive(active);
-        _abilityButton.SetActive(active);
-        _movementJoystick.SetActive(active);
-        _shootingJoystick.SetActive(active);
-    }
-
-    public void SetActiveMenuElements(bool active)
-    {
-        _pauseMenu.SetActive(active);
-        _winMenu.SetActive(active);
-        _gameOverMenu.SetActive(active);
-    }
 }

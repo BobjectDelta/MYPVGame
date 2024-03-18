@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
         {
             _health -= damage;
             if (gameObject.CompareTag("Player") && GameManagement.gameManagerInstance != null)
-                GameManagement.gameManagerInstance._healthBar.GetComponent<HealthBar>().SetCurrentValue(_health);
+                UIManagement.uiManagerInstance._healthBar.GetComponent<HealthBar>().SetCurrentValue(_health);
             _invincibilitycoroutine = SetInvincibility(_invincibilityTime);
             StartCoroutine(_invincibilitycoroutine);
             if (_health <= 0)
@@ -54,25 +54,25 @@ public class Health : MonoBehaviour
         if (_health > _maxHealth)        
             _health = _maxHealth;
         if (gameObject.CompareTag("Player") && GameManagement.gameManagerInstance != null)
-            GameManagement.gameManagerInstance._healthBar.GetComponent<HealthBar>().SetCurrentValue(_health);
+            UIManagement.uiManagerInstance._healthBar.GetComponent<HealthBar>().SetCurrentValue(_health);
         Debug.Log(_health);
     }
 
     public IEnumerator SetInvincibility(float invincibilityTime)
     {
-        Debug.Log("Coroutine started");
+        //Debug.Log("Coroutine started");
 
         _isInvincible = true;
         yield return new WaitForSeconds(invincibilityTime);
         _isInvincible = false;
-        Debug.Log("Coroutine ended");
+        //Debug.Log("Coroutine ended");
     }
 
     public void StopInvincibilityCoroutine()
     {
         StopCoroutine(_invincibilitycoroutine);
         _isInvincible = false;
-        Debug.Log("Coroutine stopped");
+        //Debug.Log("Coroutine stopped");
     }
 
     public float GetHealth()

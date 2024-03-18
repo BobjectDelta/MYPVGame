@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIShootBehaviour : AIBehaviour
+public class EnemyShootBehaviour : EnemyBehaviour
 {
     [SerializeField] private ProjectileShooting _projectileShooting;
 
@@ -10,7 +10,8 @@ public class AIShootBehaviour : AIBehaviour
     {
         _projectileShooting = GetComponentInChildren<ProjectileShooting>();
     }
-    public override void PerformAction(AIDetector detector)
+
+    public override void ExecuteAction(EnemyRadar enemyRadar)
     {
         _projectileShooting.Shoot();
     }

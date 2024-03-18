@@ -76,12 +76,9 @@ public class NoiseFloorGenerator : MonoBehaviour
         }
 
         HashSet<Vector2Int> largestFloorRegion = new HashSet<Vector2Int>();
-        foreach (HashSet<Vector2Int> floorRegion in floorRegions)
-        {
-            Debug.Log(floorRegion.Count());
+        foreach (HashSet<Vector2Int> floorRegion in floorRegions)       
             if (floorRegion.Count > largestFloorRegion.Count)
-                largestFloorRegion = floorRegion;
-        }
+                largestFloorRegion = floorRegion;       
 
         return largestFloorRegion;
     }
@@ -103,7 +100,6 @@ public class NoiseFloorGenerator : MonoBehaviour
             {
                 visited[currentX, currentY] = true;
                 floorRegion.Add(currentCoord);
-
                 coordsQueue.Enqueue(new Vector2Int(currentX + 1, currentY));
                 coordsQueue.Enqueue(new Vector2Int(currentX - 1, currentY));
                 coordsQueue.Enqueue(new Vector2Int(currentX, currentY + 1));

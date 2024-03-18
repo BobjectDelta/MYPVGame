@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7887714124361137696}
-  - component: {fileID: 274875498113331342}
+  - component: {fileID: 4893026253356358032}
   m_Layer: 0
   m_Name: AIDetector
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8462762162589824854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &274875498113331342
+--- !u!114 &4893026253356358032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,15 +41,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1977653333262110771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c790ce9c22954374f90358e2f78de988, type: 3}
+  m_Script: {fileID: 11500000, guid: 54fc5b0f44574444caa3d04de5a5ee96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewRadius: 5
-  _detectionCheckDelay: 0.3
-  _playerLayerMask:
+  _radarRadius: 5
+  _radarCheckInterval: 0.3
+  _playerLayer:
     serializedVersion: 2
     m_Bits: 1024
-  _visibilityLayer:
+  _visionLayer:
     serializedVersion: 2
     m_Bits: 1536
   _target: {fileID: 0}
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootBehaviour: {fileID: 5048474337738253390}
   _chaseBehaviour: {fileID: 2711978189979815065}
-  _detector: {fileID: 274875498113331342}
+  _enemyRadar: {fileID: 0}
 --- !u!114 &5048474337738253390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 35
   _maxHealth: 35
+  _isInvincible: 0
   _invincibilityTime: 0
 --- !u!114 &6704926483568767730
 MonoBehaviour:

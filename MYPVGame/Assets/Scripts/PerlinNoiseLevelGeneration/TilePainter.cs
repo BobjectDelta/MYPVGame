@@ -7,7 +7,7 @@ public class TilePainter : MonoBehaviour
 {
     [SerializeField] private Tilemap _floorTilemap;
     [SerializeField] private Tilemap _wallTilemap;
-
+    [Space]
     [SerializeField] private TileBase _floorTile;
 
     [SerializeField] private TileBase _wallBase;

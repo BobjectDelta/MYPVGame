@@ -1,32 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class DefaultEnemyAI : MonoBehaviour
 {
-    [SerializeField] private AIBehaviour _shootBehaviour;
-    [SerializeField] private AIBehaviour _chaseBehaviour;
+    [SerializeField] private EnemyBehaviour _shootBehaviour;
+    [SerializeField] private EnemyBehaviour _chaseBehaviour;
 
-    [SerializeField] private AIDetector _detector;
+    [SerializeField] private EnemyRadar _enemyRadar;
 
     private void Awake()
     {
-        _detector = GetComponentInChildren<AIDetector>();
-        _shootBehaviour = GetComponent<AIShootBehaviour>();
-        _chaseBehaviour = GetComponent<AIChaseBehaviour>();
+        _enemyRadar = GetComponentInChildren<EnemyRadar>();
+
+        _shootBehaviour = GetComponent<EnemyShootBehaviour>();
+        _chaseBehaviour = GetComponent<EnemyChaseBehaviour>();
     }
 
     private void FixedUpdate()
     {
-        if (_detector.Target != null)
+        if (_enemyRadar.GetRadarTarget() != null)
         {
-            if (_detector.isTargetVisible)
+            if (_enemyRadar.isTargetVisible)
                 if (_shootBehaviour != null)
-                    _shootBehaviour.PerformAction(_detector);
+                    _shootBehaviour.ExecuteAction(_enemyRadar);
             if (_chaseBehaviour != null)
-                _chaseBehaviour.PerformAction(_detector);
+                _chaseBehaviour.ExecuteAction(_enemyRadar);
         }
     }
 

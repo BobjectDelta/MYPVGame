@@ -137,7 +137,7 @@ MonoBehaviour:
   _fireRateDelay: 0.2
   _bulletPrefab: {fileID: 7573879527320318496, guid: 788a3fdc65e5d7e4ca48e07a8ef0b24e, type: 3}
   _shootingForce: 15
-  _bulletLifeTime: 1
+  _bulletLifeTime: 0.45
 --- !u!1 &5659431917602391427
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +369,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movementSpeed: 4
   _rigidbody2D: {fileID: 3085339068626609759}
-  _movementJoystick: {fileID: 0}
 --- !u!114 &1228568700540527001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidbody2D: {fileID: 3085339068626609759}
   _camera: {fileID: 0}
-  _shootingJoystick: {fileID: 0}
   _shootingType: {fileID: 7081099954863321605}
 --- !u!114 &3878328144232547587
 MonoBehaviour:
