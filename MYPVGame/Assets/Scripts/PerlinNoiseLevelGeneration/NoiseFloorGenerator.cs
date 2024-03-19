@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class NoiseFloorGenerator : MonoBehaviour
 {
-    [SerializeField] private int width = 32;
-    [SerializeField] private int height = 32;
+    [SerializeField] private int _width = 32;
+    [SerializeField] private int _height = 32;
 
-    [SerializeField] private float scale = 3;
+    [SerializeField] private float _scale = 3;
 
-    [SerializeField] private float offsetX = 10f;
-    [SerializeField] private float offsetY = 10f;
+    [SerializeField] private float _offsetX = 10f;
+    [SerializeField] private float _offsetY = 10f;
 
     public HashSet<Vector2Int> GenerateNewLevelFloor()
     {
@@ -20,13 +20,13 @@ public class NoiseFloorGenerator : MonoBehaviour
 
         do
         {
-            offsetX = Random.Range(0f, 1000);
-            offsetY = Random.Range(0f, 1000);
+            _offsetX = Random.Range(0f, 1000);
+            _offsetY = Random.Range(0f, 1000);
 
             levelFloor = GenerateFloor();
             Debug.Log(levelFloor.Count);
             levelFloor = GetLargestFloorRegion(levelFloor);
-        } while (levelFloor.Count < (width * height) / 2);
+        } while (levelFloor.Count < (_width * _height) / 2);
 
         return levelFloor;
     }
@@ -35,9 +35,9 @@ public class NoiseFloorGenerator : MonoBehaviour
     {
         HashSet<Vector2Int> floorCoords = new HashSet<Vector2Int>();
 
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < _width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < _height; y++)
             {
                 Vector2Int floorTileCoords = GenerateFloorTile(x, y);
                 if (floorTileCoords != Vector2Int.zero)
@@ -50,8 +50,8 @@ public class NoiseFloorGenerator : MonoBehaviour
 
     public Vector2Int GenerateFloorTile(int x, int y)
     {
-        float xCoord = (float)x / width * scale + offsetX;
-        float yCoord = (float)y / height * scale + offsetY;
+        float xCoord = (float)x / _width * _scale + _offsetX;
+        float yCoord = (float)y / _height * _scale + _offsetY;
 
         float sample = Mathf.PerlinNoise(xCoord, yCoord);
         if (sample > 0.35 && sample < 0.8 && sample != 0.5)
@@ -62,7 +62,7 @@ public class NoiseFloorGenerator : MonoBehaviour
 
     private HashSet<Vector2Int> GetLargestFloorRegion(HashSet<Vector2Int> floorCoords)
     {
-        bool[,] visitedCoords = new bool[width, height];
+        bool[,] visitedCoords = new bool[_width, _height];
         List<HashSet<Vector2Int>> floorRegions = new List<HashSet<Vector2Int>>();
         
         foreach (Vector2Int floorCoord in  floorCoords) 

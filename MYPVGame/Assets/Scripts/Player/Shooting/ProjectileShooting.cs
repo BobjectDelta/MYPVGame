@@ -64,13 +64,6 @@ public class ProjectileShooting : Shooting
             _shootingForce = 1;
     }
 
-    //public override void ChangeAdditionalBulletAmount(int  amount)
-    //{
-    //    _additionalBullets += amount;
-    //    if (_additionalBullets < 0)
-    //        _additionalBullets = 0;
-    //}
-
     public override void AddAdditionalBullet(int amount)
     {
         _additionalBullets += amount;

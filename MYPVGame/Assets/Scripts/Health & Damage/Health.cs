@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -19,7 +17,6 @@ public class Health : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        Debug.Log(_isInvincible);
         if (!_isInvincible)
         {
             _health -= damage;
@@ -33,10 +30,7 @@ public class Health : MonoBehaviour
                 Die();
                 return;
             }
-            Debug.Log(_health);
         }
-        //else
-            //Debug.Log("no dmg");
     }
 
     private void Die()
