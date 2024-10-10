@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8748929268672039259}
   - component: {fileID: -3388188489221425577}
   m_Layer: 0
-  m_Name: PlayerShotSFX
+  m_Name: EnemyShotSFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,11 +42,11 @@ AudioSource:
   m_GameObject: {fileID: 7876445225036306972}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -43742050724145410, guid: dc8797adc4768a245a915bd85ec6676f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 60aa13c171bb5d840946820ec56d9790, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
-  m_Pitch: 1
+  m_Volume: 0.2
+  m_Pitch: 0.8
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -89,7 +89,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.5
+      value: 0.8
       inSlope: 0
       outSlope: 0
       tangentMode: 0

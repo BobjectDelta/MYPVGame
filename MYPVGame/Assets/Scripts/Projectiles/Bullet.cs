@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private GameObject _hitEffect;
-    [SerializeField] private IgnoreTag _ignoreTag = IgnoreTag.Player;
-    private float _damage;
+    [SerializeField] protected GameObject _hitEffect;
+    [SerializeField] protected IgnoreTag _ignoreTag = IgnoreTag.Player;
+    protected float _damage;
 
     private void OnTriggerEnter2D(Collider2D collisionObject)
     {
@@ -27,7 +26,7 @@ public class Bullet : MonoBehaviour
         _damage = damage;
     }
 
-    private enum IgnoreTag
+    protected enum IgnoreTag
     {
         Player,
         Enemy
