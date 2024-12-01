@@ -1,30 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class EnemyAI : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyBehaviour _shootBehaviour;
-    [SerializeField] private EnemyBehaviour _chaseBehaviour;
-
     [SerializeField] private EnemyRadar _enemyRadar;
+    private FiniteStateMachine _fsm;
 
     private void Awake()
     {
         _enemyRadar = GetComponentInChildren<EnemyRadar>();
-        _shootBehaviour = GetComponent<EnemyShootBehaviour>();
-        _chaseBehaviour = GetComponent<EnemyChaseBehaviour>();
+        _fsm = gameObject.AddComponent<FiniteStateMachine>();
     }
 
     private void FixedUpdate()
     {
-        if (_enemyRadar.GetRadarTarget() != null)
+        /*if (_enemyRadar.GetRadarTarget() != null)
         {
             if (_enemyRadar.isTargetVisible)
                 if (_shootBehaviour != null)
                     _shootBehaviour.ExecuteAction(_enemyRadar);
             if (_chaseBehaviour != null)
                 _chaseBehaviour.ExecuteAction(_enemyRadar);
-        }
+        }*/
     }
 
     private void DecrementEnemiesToDefeat()
