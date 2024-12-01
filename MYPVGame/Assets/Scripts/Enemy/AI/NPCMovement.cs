@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 1;
-    [SerializeField] private float _approachThreshhold = 0;
-    [SerializeField] private float _rotationSpeed = 5f;
+    [SerializeField] private float _approachThreshhold = 3;
+    [SerializeField] private float _rotationSpeed = 3f;
+    private EnemyRadar _enemyRadar;
 
     private Vector2 _movementVector = Vector2.zero;
     private Rigidbody2D _rigidbody;
     private Quaternion _targetRotation;
-    private EnemyRadar _enemyRadar;
 
     private void Awake()
     {
@@ -20,25 +17,32 @@ public class NPCMovement : MonoBehaviour
         _enemyRadar = GetComponentInChildren<EnemyRadar>();
     }
 
+    private void FixedUpdate()
+    {
+        // Debug.Log(_movementVector.x + " " + _movementVector.y);
+        transform.rotation = SmoothRotation(transform.rotation, _targetRotation);
+        _rigidbody.velocity = _movementVector * _moveSpeed;
+    }
+
     public void ApproachPosition(Vector3 targetPosition)
     {
         _movementVector = (targetPosition - transform.position).normalized;
         _targetRotation = Quaternion.Euler(0, 0, GetChaseAngle(targetPosition));
-        
-        float distanceToTarget = Vector2.Distance(transform.position, targetPosition);
+
+        var distanceToTarget = Vector2.Distance(transform.position, targetPosition);
         _movementVector = (targetPosition - transform.position).normalized;
-        float deltaDistance = distanceToTarget - _approachThreshhold;
+        var deltaDistance = distanceToTarget - _approachThreshhold;
 
         if (deltaDistance < 0.8f)
             _movementVector *= -1;
         else if (deltaDistance < 1f)
             StopMovement();
     }
-    
+
     public void FleeFromPosition(Vector3 targetPosition)
     {
         _movementVector = -(targetPosition - transform.position).normalized;
-        transform.rotation = Quaternion.Euler(0, 0, GetChaseAngle(targetPosition));
+        _targetRotation = Quaternion.Euler(0, 0, GetChaseAngle(targetPosition));
     }
 
     public void StopMovement()
@@ -49,13 +53,6 @@ public class NPCMovement : MonoBehaviour
     private float GetChaseAngle(Vector3 targetPosition)
     {
         return Vector3.SignedAngle(Vector3.up, (targetPosition - transform.position).normalized, Vector3.forward);
-    }
-
-    private void FixedUpdate()
-    {
-        // Debug.Log(_movementVector.x + " " + _movementVector.y);
-        transform.rotation = SmoothRotation(transform.rotation, _targetRotation);
-        _rigidbody.velocity = _movementVector * _moveSpeed;
     }
 
     private Quaternion SmoothRotation(Quaternion current, Quaternion target)
