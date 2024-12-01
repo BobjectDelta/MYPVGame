@@ -64,7 +64,7 @@ public class EnemyRadar : MonoBehaviour
         return _target;
     }
 
-    public void SetRadarTarget(Transform target)
+    private void SetRadarTarget(Transform target)
     {
         _target = target;
         isTargetVisible = false;
