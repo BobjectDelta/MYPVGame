@@ -11,6 +11,9 @@ public class EnemyRadar : MonoBehaviour
 
     [field: SerializeField] public bool isTargetVisible { get; private set; }
 
+    private Vector3 _previousTargetPosition = Vector3.zero;
+    private bool _hasPreviousPosition = false;
+
     private void Start()
     {
         StartCoroutine(DetectionCoroutine());
@@ -19,7 +22,31 @@ public class EnemyRadar : MonoBehaviour
     private void Update()
     {
         if (_target != null)
-            isTargetVisible = CheckTargetVisibility();
+        {
+            bool currentVisibility = CheckTargetVisibility();
+
+            if (!currentVisibility && _hasPreviousPosition)
+            {
+                float distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
+                if (distanceToPreviousPosition <= 2 * 0.8f)
+                {
+                    isTargetVisible = true;
+                    return;
+                }
+                else
+                {
+                    _hasPreviousPosition = false;
+                }
+            }
+
+            isTargetVisible = currentVisibility;
+
+            if (isTargetVisible)
+            {
+                _previousTargetPosition = _target.position;
+                _hasPreviousPosition = true;
+            }
+        }
     }
 
     private bool CheckTargetVisibility()
@@ -28,7 +55,6 @@ public class EnemyRadar : MonoBehaviour
         if (raycastHitInfo.collider != null)
             return (_playerLayer & (1 << raycastHitInfo.collider.gameObject.layer)) != 0;
         return false;
-
     }
 
     private IEnumerator DetectionCoroutine()
@@ -68,5 +94,8 @@ public class EnemyRadar : MonoBehaviour
     {
         _target = target;
         isTargetVisible = false;
+        
+        _hasPreviousPosition = false;
+        _previousTargetPosition = Vector3.zero;
     }
 }

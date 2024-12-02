@@ -19,24 +19,20 @@ public class NPCMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Debug.Log(_movementVector.x + " " + _movementVector.y);
         transform.rotation = SmoothRotation(transform.rotation, _targetRotation);
         _rigidbody.velocity = _movementVector * _moveSpeed;
     }
 
     public void ApproachPosition(Vector3 targetPosition)
     {
-        _movementVector = (targetPosition - transform.position).normalized;
-        _targetRotation = Quaternion.Euler(0, 0, GetChaseAngle(targetPosition));
-
+        var directionToTarget = (targetPosition - transform.position).normalized;
         var distanceToTarget = Vector2.Distance(transform.position, targetPosition);
-        _movementVector = (targetPosition - transform.position).normalized;
-        var deltaDistance = distanceToTarget - _approachThreshhold;
 
-        if (deltaDistance < 0.8f)
-            _movementVector *= -1;
-        else if (deltaDistance < 1f)
-            StopMovement();
+        _movementVector = (distanceToTarget - _approachThreshhold) * directionToTarget;
+        if (_movementVector.sqrMagnitude < 0.01f) _movementVector = Vector2.zero;
+
+        // Update rotation
+        _targetRotation = Quaternion.Euler(0, 0, GetChaseAngle(targetPosition));
     }
 
     public void FleeFromPosition(Vector3 targetPosition)
