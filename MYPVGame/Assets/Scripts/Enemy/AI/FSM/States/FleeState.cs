@@ -12,13 +12,10 @@ public class FleeState : BaseState
 
     public override void Execute()
     {
-        Debug.Log("Executing: Flee");
-        //npcMovement.ApproachPosition(enemyRadar.GetRadarTarget().position);
         npcMovement.FleeFromPosition(enemyRadar.GetRadarTarget().position);
+
         if (!enemyRadar.isTargetVisible)
-        {
             isComplete = true;
-        }
     }
 
     public override void ExitState()

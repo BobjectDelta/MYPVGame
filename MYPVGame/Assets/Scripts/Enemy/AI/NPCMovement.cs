@@ -41,6 +41,12 @@ public class NPCMovement : MonoBehaviour
         _targetRotation = Quaternion.Euler(0, 0, GetChaseAngle(targetPosition));
     }
 
+    public void ApplyKnockBack(Collider2D collider)
+    {
+        Vector2 knockbackVector = (transform.position - collider.attachedRigidbody.transform.position).normalized;
+        _rigidbody.AddForce(knockbackVector, ForceMode2D.Impulse);
+    }
+
     public void StopMovement()
     {
         _movementVector = Vector2.zero;
@@ -65,7 +71,7 @@ public class NPCMovement : MonoBehaviour
      * Quadratic easing function that ensures the area under the F(x) curve is 1:
      * 4x^2 when x < 0.5
      * -4x^2 + 8x - 2 when x >= 0.5
-     * In code this are first derivative (f(x)) of the functions cuz we are using it for interpolation
+     * In code these are first derivative (f(x)) of the functions cuz we are using it for interpolation
      */
     private static float QuadraticEaseInOut(float x)
     {
