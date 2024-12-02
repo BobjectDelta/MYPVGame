@@ -10,9 +10,9 @@ public class EnemyRadar : MonoBehaviour
     [SerializeField] private Transform _target;
 
     [field: SerializeField] public bool isTargetVisible { get; private set; }
+    private bool _hasPreviousPosition;
 
     private Vector3 _previousTargetPosition = Vector3.zero;
-    private bool _hasPreviousPosition = false;
 
     private void Start()
     {
@@ -23,20 +23,18 @@ public class EnemyRadar : MonoBehaviour
     {
         if (_target != null)
         {
-            bool currentVisibility = CheckTargetVisibility();
+            var currentVisibility = CheckTargetVisibility();
 
             if (!currentVisibility && _hasPreviousPosition)
             {
-                float distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
+                var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
                 if (distanceToPreviousPosition <= 2 * 0.8f)
                 {
                     isTargetVisible = true;
                     return;
                 }
-                else
-                {
-                    _hasPreviousPosition = false;
-                }
+
+                _hasPreviousPosition = false;
             }
 
             isTargetVisible = currentVisibility;
@@ -51,7 +49,8 @@ public class EnemyRadar : MonoBehaviour
 
     private bool CheckTargetVisibility()
     {
-        var raycastHitInfo = Physics2D.Raycast(transform.position, _target.position - transform.position, _radarRadius, _visionLayer);
+        var raycastHitInfo = Physics2D.Raycast(transform.position, _target.position - transform.position, _radarRadius,
+            _visionLayer);
         if (raycastHitInfo.collider != null)
             return (_playerLayer & (1 << raycastHitInfo.collider.gameObject.layer)) != 0;
         return false;
@@ -74,15 +73,16 @@ public class EnemyRadar : MonoBehaviour
 
     private void CheckIfPlayerInRange()
     {
-        Collider2D collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _playerLayer);
+        var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _playerLayer);
         if (collision != null)
-            this.SetRadarTarget(collision.transform);
+            SetRadarTarget(collision.transform);
     }
 
     private void DetectIfOutOfRange()
     {
-        if (_target == null || _target.gameObject.activeSelf == false || Vector2.Distance(transform.position, _target.position) > _radarRadius + 1)
-            this.SetRadarTarget(null);
+        if (_target == null || _target.gameObject.activeSelf == false ||
+            Vector2.Distance(transform.position, _target.position) > _radarRadius + 1)
+            SetRadarTarget(null);
     }
 
     public Transform GetRadarTarget()
@@ -94,7 +94,7 @@ public class EnemyRadar : MonoBehaviour
     {
         _target = target;
         isTargetVisible = false;
-        
+
         _hasPreviousPosition = false;
         _previousTargetPosition = Vector3.zero;
     }
