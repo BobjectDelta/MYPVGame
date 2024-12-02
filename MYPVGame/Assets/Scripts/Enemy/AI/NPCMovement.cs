@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class NPCMovement : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 1;
-    [SerializeField] private float _approachThreshhold = 3;
+    [SerializeField] private float _moveSpeed = 1f;
+    [SerializeField] private float _approachThreshhold = 3f;
     [SerializeField] private float _rotationSpeed = 3f;
     private EnemyRadar _enemyRadar;
 

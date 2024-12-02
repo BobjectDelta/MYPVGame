@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyRadar _enemyRadar;
     private FiniteStateMachine _fsm;
+    public Formation _formation { get; set; }
 
     private void Awake()
     {
+        _formation = gameObject.AddComponent<Formation>();
         _enemyRadar = GetComponentInChildren<EnemyRadar>();
         _fsm = gameObject.AddComponent<FiniteStateMachine>();
     }
