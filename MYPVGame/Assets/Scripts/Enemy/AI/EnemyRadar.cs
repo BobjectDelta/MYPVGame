@@ -12,6 +12,7 @@ public class EnemyRadar : MonoBehaviour
     [SerializeField] private Transform _enemyTarget;
 
     [field: SerializeField] public bool isTargetVisible { get; private set; }
+    [field: SerializeField] public bool isAllyVisible { get; private set; }
     private bool _hasPreviousPosition;
 
     private Vector3 _previousTargetPosition = Vector3.zero;
@@ -52,6 +53,11 @@ public class EnemyRadar : MonoBehaviour
                 _hasPreviousPosition = true;
             }
         }
+
+        //if (_enemyTarget != null) 
+        //{ 
+        //    isAllyVisible = CheckTargetVisibility(_enemyTarget);
+        //}
     }
 
     private bool CheckTargetVisibility(Transform target)
@@ -72,8 +78,8 @@ public class EnemyRadar : MonoBehaviour
 
     private void DetectTargets()
     {
-        DetectPlayerTarget();
-        DetectEnemyTarget();
+        DetectTarget(_playerTarget, _playerLayer);
+        DetectTarget(_enemyTarget, _enemyLayer);    //TODO: Detect a new enemy ally after killing the old one
     }
 
     private void DetectPlayerTarget()
@@ -92,6 +98,14 @@ public class EnemyRadar : MonoBehaviour
             DetectIfEnemyOutOfRange();
     }
 
+    private void DetectTarget(Transform target, LayerMask targetLayerMask)
+    {
+        if (target == null)
+            CheckIfTargetInRange(targetLayerMask);
+        else
+            DetectIfTargetOutOfRange(target);
+    }
+
     private void CheckIfPlayerInRange()
     {
         var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _playerLayer);
@@ -104,6 +118,13 @@ public class EnemyRadar : MonoBehaviour
         var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _enemyLayer);
         if (collision != null)
             SetRadarEnemy(collision.transform);
+    }
+
+    private void CheckIfTargetInRange(LayerMask targetLayerMask)
+    {
+        var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, targetLayerMask);
+        if (collision != null)
+            SetRadarTarget(collision.transform);
     }
 
     private void DetectIfPlayerOutOfRange()
@@ -120,6 +141,14 @@ public class EnemyRadar : MonoBehaviour
             SetRadarEnemy(null);
     }
 
+    private void DetectIfTargetOutOfRange(Transform target)
+    {
+        if (target == null || target.gameObject.activeSelf == false ||
+            Vector2.Distance(transform.position, target.position) > _radarRadius + 1)
+            SetRadarTarget(null);
+
+    }
+
     // Old API for backwards compatibility, TODO: REMOVE
     public Transform GetRadarTarget()
     {
@@ -134,6 +163,20 @@ public class EnemyRadar : MonoBehaviour
     public Transform GetRadarEnemy()
     {
         return _enemyTarget;
+    }
+
+    private void SetRadarTarget(Transform target)
+    {
+        if (target.gameObject.GetComponent<Enemy>() == null)
+        {
+            _playerTarget = target;
+            isTargetVisible = false;
+
+            _hasPreviousPosition = false;
+            _previousTargetPosition = Vector3.zero;
+        }
+        else
+            _enemyTarget = target;
     }
 
     private void SetRadarPlayer(Transform player)
