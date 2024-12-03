@@ -40,10 +40,10 @@ public class FiniteStateMachine : MonoBehaviour
     {
         if (_enemyRadar.isTargetVisible) 
         {
-            //if (Random.value >= 0.5f)
+            if (_enemyRadar.GetRadarEnemy() != null)
+                _currentState = _fleeState;
+            else
                 _currentState = _attackState;
-            /*else
-                _currentState = _attackState;*/
         }
         else
         {
