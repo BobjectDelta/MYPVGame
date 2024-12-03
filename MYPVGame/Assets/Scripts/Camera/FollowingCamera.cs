@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowingCamera : MonoBehaviour
@@ -12,7 +10,7 @@ public class FollowingCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_target != null)
+        if (_target)
         {
             _targetPosition = _target.transform.position;
             _targetPosition.z = -10;

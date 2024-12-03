@@ -6,10 +6,15 @@ public class EnemyRadar : MonoBehaviour
     [SerializeField] [Range(0.5f, 10)] private float _radarRadius;
     [SerializeField] private float _radarCheckInterval = 0.3f;
     [SerializeField] private LayerMask _playerLayer;
+    [SerializeField] private LayerMask _enemyLayer;
     [SerializeField] private LayerMask _visionLayer;
-    [SerializeField] private Transform _target;
+    [SerializeField] private Transform _playerTarget;
+    [SerializeField] private Transform _enemyTarget;
 
     [field: SerializeField] public bool isTargetVisible { get; private set; }
+    private bool _hasPreviousPosition;
+
+    private Vector3 _previousTargetPosition = Vector3.zero;
 
     private void Start()
     {
@@ -18,55 +23,130 @@ public class EnemyRadar : MonoBehaviour
 
     private void Update()
     {
-        if (_target != null)
-            isTargetVisible = CheckTargetVisibility();
+        UpdateTargetVisibility(_playerTarget);
     }
 
-    private bool CheckTargetVisibility()
+    private void UpdateTargetVisibility(Transform target)
     {
-        var raycastHitInfo = Physics2D.Raycast(transform.position, _target.position - transform.position, _radarRadius, _visionLayer);
+        if (target != null)
+        {
+            var currentVisibility = CheckTargetVisibility(target);
+
+            if (!currentVisibility && _hasPreviousPosition)
+            {
+                var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
+                if (distanceToPreviousPosition <= 2 * 0.8f)
+                {
+                    isTargetVisible = true;
+                    return;
+                }
+
+                _hasPreviousPosition = false;
+            }
+
+            isTargetVisible = currentVisibility;
+
+            if (isTargetVisible)
+            {
+                _previousTargetPosition = target.position;
+                _hasPreviousPosition = true;
+            }
+        }
+    }
+
+    private bool CheckTargetVisibility(Transform target)
+    {
+        var raycastHitInfo = Physics2D.Raycast(transform.position, target.position - transform.position, _radarRadius,
+            _visionLayer);
         if (raycastHitInfo.collider != null)
             return (_playerLayer & (1 << raycastHitInfo.collider.gameObject.layer)) != 0;
         return false;
-
     }
 
     private IEnumerator DetectionCoroutine()
     {
         yield return new WaitForSeconds(_radarCheckInterval);
-        DetectTarget();
+        DetectTargets();
         StartCoroutine(DetectionCoroutine());
     }
 
-    private void DetectTarget()
+    private void DetectTargets()
     {
-        if (_target == null)
+        DetectPlayerTarget();
+        DetectEnemyTarget();
+    }
+
+    private void DetectPlayerTarget()
+    {
+        if (_playerTarget == null)
             CheckIfPlayerInRange();
-        else if (_target != null)
-            DetectIfOutOfRange();
+        else if (_playerTarget != null)
+            DetectIfPlayerOutOfRange();
+    }
+
+    private void DetectEnemyTarget()
+    {
+        if (_enemyTarget == null)
+            CheckIfEnemyInRange();
+        else if (_enemyTarget != null)
+            DetectIfEnemyOutOfRange();
     }
 
     private void CheckIfPlayerInRange()
     {
-        Collider2D collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _playerLayer);
+        var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _playerLayer);
         if (collision != null)
-            this.SetRadarTarget(collision.transform);
+            SetRadarPlayer(collision.transform);
     }
 
-    private void DetectIfOutOfRange()
+    private void CheckIfEnemyInRange()
     {
-        if (_target == null || _target.gameObject.activeSelf == false || Vector2.Distance(transform.position, _target.position) > _radarRadius + 1)
-            this.SetRadarTarget(null);
+        var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _enemyLayer);
+        if (collision != null)
+            SetRadarEnemy(collision.transform);
     }
 
+    private void DetectIfPlayerOutOfRange()
+    {
+        if (_playerTarget == null || _playerTarget.gameObject.activeSelf == false ||
+            Vector2.Distance(transform.position, _playerTarget.position) > _radarRadius + 1)
+            SetRadarPlayer(null);
+    }
+
+    private void DetectIfEnemyOutOfRange()
+    {
+        if (_enemyTarget == null || _enemyTarget.gameObject.activeSelf == false ||
+            Vector2.Distance(transform.position, _enemyTarget.position) > _radarRadius + 1)
+            SetRadarEnemy(null);
+    }
+
+    // Old API for backwards compatibility, TODO: REMOVE
     public Transform GetRadarTarget()
     {
-        return _target;
+        return GetRadarPlayer();
     }
 
-    private void SetRadarTarget(Transform target)
+    public Transform GetRadarPlayer()
     {
-        _target = target;
+        return _playerTarget;
+    }
+
+    public Transform GetRadarEnemy()
+    {
+        return _enemyTarget;
+    }
+
+    private void SetRadarPlayer(Transform player)
+    {
+        _playerTarget = player;
         isTargetVisible = false;
+
+        _hasPreviousPosition = false;
+        _previousTargetPosition = Vector3.zero;
+    }
+
+    private void SetRadarEnemy(Transform enemy)
+    {
+        _enemyTarget = enemy;
     }
 }

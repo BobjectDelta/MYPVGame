@@ -1205,6 +1205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 1
+  _approachThreshhold: 2
 --- !u!1 &496719597
 GameObject:
   m_ObjectHideFlags: 0

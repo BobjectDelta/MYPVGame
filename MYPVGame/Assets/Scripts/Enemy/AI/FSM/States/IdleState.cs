@@ -12,7 +12,6 @@ public class IdleState : BaseState
 
     public override void Execute()
     {
-        Debug.Log("Executing: Idle");
         if (enemyRadar.isTargetVisible)
             isComplete = true;
     }

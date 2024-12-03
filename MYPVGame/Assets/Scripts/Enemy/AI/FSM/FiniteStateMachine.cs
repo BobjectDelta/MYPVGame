@@ -10,7 +10,7 @@ public class FiniteStateMachine : MonoBehaviour
 
     [SerializeField] private BaseState _idleState = new IdleState();
     [SerializeField] private BaseState _fleeState = new FleeState();
-    private BaseState _attackState = new AttackState();
+    private AttackState _attackState = new AttackState();
 
     private EnemyRadar _enemyRadar;
 
@@ -21,6 +21,7 @@ public class FiniteStateMachine : MonoBehaviour
         _idleState.Setup(_enemyRadar, npcMovement);
         _fleeState.Setup(_enemyRadar, npcMovement);
         _attackState.Setup(_enemyRadar, npcMovement);
+        _attackState.SetShootingComponent(gameObject.GetComponentInChildren<ProjectileShooting>());
         _currentState = _idleState;
     }
 
@@ -40,7 +41,7 @@ public class FiniteStateMachine : MonoBehaviour
         if (_enemyRadar.isTargetVisible) 
         {
             //if (Random.value >= 0.5f)
-                _currentState = _fleeState;
+                _currentState = _attackState;
             /*else
                 _currentState = _attackState;*/
         }
