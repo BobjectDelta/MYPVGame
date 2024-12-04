@@ -22,6 +22,7 @@ public class FleeState : BaseState
     public override void ExitState()
     {
         Debug.Log("Exited: Flee");
+        //formation.Merge(enemyRadar.GetRadarEnemy().gameObject.GetComponent<Formation>());
         npcMovement.StopMovement();
     }
     

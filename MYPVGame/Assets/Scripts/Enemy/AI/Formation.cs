@@ -14,10 +14,13 @@ public class Formation : MonoBehaviour
 
     public void Merge(Formation formationToMerge)
     {
-        foreach (Enemy enemy in formationToMerge._enemies)
+        if (formationToMerge != this)
         {
-            enemy._formation = this;
+            foreach (Enemy enemy in formationToMerge._enemies)
+            {
+                enemy.formation = this;
+            }
+            _enemies.AddRange(formationToMerge._enemies);
         }
-        _enemies.AddRange(formationToMerge._enemies);
     }
 }

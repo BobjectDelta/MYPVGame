@@ -18,14 +18,15 @@ public class FiniteStateMachine : MonoBehaviour
     {
         _enemyRadar = gameObject.GetComponentInChildren<EnemyRadar>();
         NPCMovement npcMovement = gameObject.GetComponent<NPCMovement>();
-        _idleState.Setup(_enemyRadar, npcMovement);
-        _fleeState.Setup(_enemyRadar, npcMovement);
-        _attackState.Setup(_enemyRadar, npcMovement);
+        Formation formation = gameObject.GetComponent<Formation>();
+        _idleState.Setup(_enemyRadar, npcMovement, formation);
+        _fleeState.Setup(_enemyRadar, npcMovement, formation);
+        _attackState.Setup(_enemyRadar, npcMovement, formation);
         _attackState.SetShootingComponent(gameObject.GetComponentInChildren<ProjectileShooting>());
         _currentState = _idleState;
     }
 
-    public void Update() 
+    public void FixedUpdate() 
     {
         if (_currentState.isComplete)
         {
