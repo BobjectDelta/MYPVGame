@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyRadar : MonoBehaviour
@@ -69,6 +70,26 @@ public class EnemyRadar : MonoBehaviour
         return false;
     }
 
+    private bool CheckEnemyVisibility(Transform target)
+    {
+        var raycastHitInfo = Physics2D.Raycast(transform.position, target.position - transform.position, _radarRadius,
+            _visionLayer);
+        if (raycastHitInfo.collider != null)
+            return (_enemyLayer & (1 << raycastHitInfo.collider.gameObject.layer)) != 0;
+        return false;
+    }
+
+    public List<Collider2D> GetVisibleEnemyColliders()
+    {
+        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius/2, _enemyLayer);
+        List<Collider2D> visibleColliders = new List<Collider2D>();
+
+        foreach (Collider2D collider in enemyColliders)
+            if (CheckEnemyVisibility(collider.transform))
+                visibleColliders.Add(collider);
+
+        return visibleColliders;
+    }
     private IEnumerator DetectionCoroutine()
     {
         yield return new WaitForSeconds(_radarCheckInterval);
@@ -124,7 +145,7 @@ public class EnemyRadar : MonoBehaviour
     {
         //var col = Physics2D.OverlapCircle()       
         var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, targetLayerMask);
-        if (collision != null && collision != Physics2D.OverlapPoint(transform.position))
+        if (collision != null && collision != GetComponentInParent<Collider2D>())// Physics2D.OverlapPoint(transform.position))
             SetRadarTarget(collision.transform, targetLayerMask);
     }
 

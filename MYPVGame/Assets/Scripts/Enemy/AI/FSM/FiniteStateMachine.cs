@@ -53,4 +53,14 @@ public class FiniteStateMachine : MonoBehaviour
 
         _currentState.EnterState();
     }
+
+    private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        if (Application.isPlaying && _currentState != null)
+        {
+            UnityEditor.Handles.Label(transform.position, _currentState.ToString());
+        }
+#endif
+    }
 }
