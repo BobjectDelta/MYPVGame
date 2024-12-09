@@ -27,8 +27,8 @@ public class NPCMovement : MonoBehaviour
     {
         var directionToTarget = (targetPosition - transform.position).normalized;
         var distanceToTarget = Vector2.Distance(transform.position, targetPosition);
-        Debug.Log("Dir: " + directionToTarget);
-        Debug.Log("dist: " + distanceToTarget);
+        //Debug.Log("Dir: " + directionToTarget);
+        //Debug.Log("dist: " + distanceToTarget);
         
         _movementVector = (distanceToTarget - _approachThreshhold) * directionToTarget;
         if (_movementVector.sqrMagnitude < 0.01f) 
@@ -44,8 +44,7 @@ public class NPCMovement : MonoBehaviour
         _targetRotation = Quaternion.Euler(0, 0, GetChaseAngle(targetPosition));
     }
 
-    //TODO: Bind with DealDamageOnCollision, work on calling in FixedUpdate
-    public void ApplyKnockBack(Collider2D collider)
+    public void ApplyKnockBack(Collider2D collider) //TODO: Bind with DealDamageOnCollision, work on calling in FixedUpdate
     {
         Vector2 knockbackVector = (transform.position - collider.attachedRigidbody.transform.position).normalized;
         _rigidbody.AddForce(knockbackVector, ForceMode2D.Impulse);

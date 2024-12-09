@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyRadar : MonoBehaviour
@@ -19,10 +20,10 @@ public class EnemyRadar : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(DetectionCoroutine());
+        StartCoroutine(DetectionCoroutine()); //TODO: Fix MissingReferenceException after killing an enemy inside other's radar range
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateTargetVisibility(_playerTarget);
     }
@@ -69,6 +70,26 @@ public class EnemyRadar : MonoBehaviour
         return false;
     }
 
+    private bool CheckEnemyVisibility(Transform target)
+    {
+        var raycastHitInfo = Physics2D.Raycast(transform.position, target.position - transform.position, _radarRadius,
+            _visionLayer);
+        if (raycastHitInfo.collider != null)
+            return (_enemyLayer & (1 << raycastHitInfo.collider.gameObject.layer)) != 0;
+        return false;
+    }
+
+    public List<Collider2D> GetVisibleEnemyColliders()
+    {
+        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius/2, _enemyLayer);
+        List<Collider2D> visibleColliders = new List<Collider2D>();
+
+        foreach (Collider2D collider in enemyColliders)
+            if (CheckEnemyVisibility(collider.transform))
+                visibleColliders.Add(collider);
+
+        return visibleColliders;
+    }
     private IEnumerator DetectionCoroutine()
     {
         yield return new WaitForSeconds(_radarCheckInterval);
@@ -82,7 +103,7 @@ public class EnemyRadar : MonoBehaviour
         DetectTarget(_enemyTarget, _enemyLayer);    //TODO: Detect a new enemy ally after killing the old one
     }
 
-    private void DetectPlayerTarget()
+    /*private void DetectPlayerTarget()
     {
         if (_playerTarget == null)
             CheckIfPlayerInRange();
@@ -96,17 +117,17 @@ public class EnemyRadar : MonoBehaviour
             CheckIfEnemyInRange();
         else if (_enemyTarget != null)
             DetectIfEnemyOutOfRange();
-    }
+    }*/
 
     private void DetectTarget(Transform target, LayerMask targetLayerMask)
     {
         if (target == null)
             CheckIfTargetInRange(targetLayerMask);
         else
-            DetectIfTargetOutOfRange(target);
+            DetectIfTargetOutOfRange(target, targetLayerMask);
     }
 
-    private void CheckIfPlayerInRange()
+    /*private void CheckIfPlayerInRange()
     {
         var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _playerLayer);
         if (collision != null)
@@ -118,16 +139,17 @@ public class EnemyRadar : MonoBehaviour
         var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, _enemyLayer);
         if (collision != null)
             SetRadarEnemy(collision.transform);
-    }
+    }*/
 
     private void CheckIfTargetInRange(LayerMask targetLayerMask)
     {
+        //var col = Physics2D.OverlapCircle()       
         var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, targetLayerMask);
-        if (collision != null)
-            SetRadarTarget(collision.transform);
+        if (collision != null && collision != GetComponentInParent<Collider2D>())// Physics2D.OverlapPoint(transform.position))
+            SetRadarTarget(collision.transform, targetLayerMask);
     }
 
-    private void DetectIfPlayerOutOfRange()
+    /*private void DetectIfPlayerOutOfRange()
     {
         if (_playerTarget == null || _playerTarget.gameObject.activeSelf == false ||
             Vector2.Distance(transform.position, _playerTarget.position) > _radarRadius + 1)
@@ -139,13 +161,13 @@ public class EnemyRadar : MonoBehaviour
         if (_enemyTarget == null || _enemyTarget.gameObject.activeSelf == false ||
             Vector2.Distance(transform.position, _enemyTarget.position) > _radarRadius + 1)
             SetRadarEnemy(null);
-    }
+    }*/
 
-    private void DetectIfTargetOutOfRange(Transform target)
+    private void DetectIfTargetOutOfRange(Transform target, LayerMask targetLayerMask)
     {
         if (target == null || target.gameObject.activeSelf == false ||
             Vector2.Distance(transform.position, target.position) > _radarRadius + 1)
-            SetRadarTarget(null);
+            SetRadarTarget(null, targetLayerMask);
 
     }
 
@@ -165,21 +187,30 @@ public class EnemyRadar : MonoBehaviour
         return _enemyTarget;
     }
 
-    private void SetRadarTarget(Transform target)
+    private void SetRadarTarget(Transform target, LayerMask targetLayerMask)
     {
-        if (target.gameObject.GetComponent<Enemy>() == null)
+        if (target)
         {
-            _playerTarget = target;
-            isTargetVisible = false;
+            if (target.gameObject.GetComponent<Enemy>() == null)
+            {
+                _playerTarget = target;
+                isTargetVisible = false;
 
-            _hasPreviousPosition = false;
-            _previousTargetPosition = Vector3.zero;
+                _hasPreviousPosition = false;
+                _previousTargetPosition = Vector3.zero;
+            }
+            else
+                //if (target != this.GetComponentInParent<Transform>())
+                _enemyTarget = target;
         }
-        else
-            _enemyTarget = target;
+        else 
+            if (targetLayerMask == _playerLayer)
+                _playerTarget = target;
+            else
+                _enemyTarget = target;
     }
 
-    private void SetRadarPlayer(Transform player)
+    /*private void SetRadarPlayer(Transform player)
     {
         _playerTarget = player;
         isTargetVisible = false;
@@ -191,5 +222,5 @@ public class EnemyRadar : MonoBehaviour
     private void SetRadarEnemy(Transform enemy)
     {
         _enemyTarget = enemy;
-    }
+    }*/
 }

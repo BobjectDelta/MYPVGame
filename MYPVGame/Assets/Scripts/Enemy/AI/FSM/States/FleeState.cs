@@ -12,16 +12,17 @@ public class FleeState : BaseState
 
     public override void Execute()
     {
+        if (!enemyRadar.isTargetVisible || enemyRadar.GetRadarEnemy() == null)
+            isComplete = true;
         //npcMovement.FleeFromPosition(enemyRadar.GetRadarTarget().position);
         npcMovement.ApproachPosition(enemyRadar.GetRadarEnemy().position);
         //Debug.Log(enemyRadar.GetRadarEnemy().position);
-        if (!enemyRadar.isTargetVisible)
-            isComplete = true;
     }
 
     public override void ExitState()
     {
         Debug.Log("Exited: Flee");
+        //formation.Merge(enemyRadar.GetRadarEnemy().gameObject.GetComponent<Formation>());
         npcMovement.StopMovement();
     }
     
