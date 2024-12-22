@@ -17,6 +17,7 @@ public class EnemyRadar : MonoBehaviour
     private bool _hasPreviousPosition;
 
     private Vector3 _previousTargetPosition = Vector3.zero;
+    private FormationRadar _formationRadar;
 
     private void Start()
     {
@@ -28,37 +29,91 @@ public class EnemyRadar : MonoBehaviour
         UpdateTargetVisibility(_playerTarget);
     }
 
+    public void SetFormationRadar(FormationRadar radar)
+    {
+        if (_formationRadar != null)
+        {
+            _formationRadar.UnregisterRadar(this);
+        }
+        _formationRadar = radar;
+        if (radar != null)
+        {
+            _formationRadar.RegisterRadar(this);
+        }
+    }
+
+    public void SyncWithFormation(bool formationVisibility, Transform formationTarget)
+    {
+        isTargetVisible = formationVisibility;
+        _playerTarget = formationTarget;
+    }
+    
     private void UpdateTargetVisibility(Transform target)
     {
-        if (target != null)
+        if (_formationRadar != null)
         {
-            var currentVisibility = CheckTargetVisibility(target);
-
-            if (!currentVisibility && _hasPreviousPosition)
+            // Check if we're getting data from formation radar
+            Transform formationTarget = _formationRadar.GetSharedPlayerTarget();
+            bool formationVisibility = _formationRadar.IsTargetVisibleToFormation();
+            
+            if (formationTarget != null && formationVisibility)
             {
-                var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
-                if (distanceToPreviousPosition <= 2 * 0.8f)
-                {
-                    isTargetVisible = true;
-                    return;
-                }
-
-                _hasPreviousPosition = false;
-            }
-
-            isTargetVisible = currentVisibility;
-
-            if (isTargetVisible)
-            {
-                _previousTargetPosition = target.position;
+                // Use formation's shared visibility data
+                _playerTarget = formationTarget;
+                isTargetVisible = true;
+                _previousTargetPosition = formationTarget.position;
                 _hasPreviousPosition = true;
             }
-        }
+            else // Original individual radar logic
+            {
+                if (target != null)
+                {
+                    var currentVisibility = CheckTargetVisibility(target);
 
-        //if (_enemyTarget != null) 
-        //{ 
-        //    isAllyVisible = CheckTargetVisibility(_enemyTarget);
-        //}
+                    if (!currentVisibility && _hasPreviousPosition)
+                    {
+                        var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
+                        if (distanceToPreviousPosition <= 2 * 0.8f)
+                        {
+                            isTargetVisible = true;
+                            return;
+                        }
+
+                        _hasPreviousPosition = false;
+                    }
+
+                    isTargetVisible = currentVisibility;
+
+                    if (isTargetVisible)
+                    {
+                        _previousTargetPosition = target.position;
+                        _hasPreviousPosition = true;
+
+                        // Update formation radar with our detection
+                        if (_formationRadar != null)
+                        {
+                            _formationRadar.UpdateSharedTarget(_playerTarget, true);
+                        }
+                    }
+                    else
+                    {
+                        // Inform formation radar that this member lost sight
+                        if (_formationRadar != null)
+                        {
+                            _formationRadar.UpdateSharedTarget(null, false);
+                        }
+                    }
+                }
+                else
+                {
+                    // No target in sight, update formation
+                    if (_formationRadar != null)
+                    {
+                        _formationRadar.UpdateSharedTarget(null, false);
+                    }
+                }
+            }
+        }
     }
 
     private bool CheckTargetVisibility(Transform target)

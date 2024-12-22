@@ -7,12 +7,19 @@ public class Formation : MonoBehaviour
     private static int _idCounter = -1;
     [SerializeField] private int id = ++_idCounter;
     private List<Enemy> _enemies { get; set; }
+    private FormationRadar _formationRadar;
     // private Enemy _enemyToMerge = null;
     private List<Enemy> _enemiesToMerge = new();
 
     private void Awake()
     {
         _enemies = new List<Enemy> { GetComponent<Enemy>() };
+        _formationRadar = gameObject.AddComponent<FormationRadar>();
+    }
+    
+    public bool IsTargetVisibleToFormation()
+    {
+        return _formationRadar.IsTargetVisibleToFormation();
     }
 
     public void Merge()
@@ -46,6 +53,13 @@ public class Formation : MonoBehaviour
     {
         enemyToMerge.formation = this;
         _enemies.Add(enemyToMerge);
+        
+        // Sync radar
+        var enemyRadar = enemyToMerge.GetComponentInChildren<EnemyRadar>();
+        if (enemyRadar != null)
+        {
+            enemyRadar.SetFormationRadar(_formationRadar);
+        }
         
         _enemiesToMerge.Add(enemyToMerge);  // For debugging purposes
         // Debug.Log($"Enemy {enemyToMerge.name} merged to formation {id}");

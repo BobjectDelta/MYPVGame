@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseState 
 {
-    public bool isComplete {  get; protected set; }
+    public bool isComplete { get; protected set; }
     protected EnemyRadar enemyRadar;
     protected NPCMovement npcMovement;
     protected Formation formation { get; private set; }
@@ -16,11 +16,7 @@ public abstract class BaseState
         this.formation = formation;
     }
 
-
     public abstract void Execute();
-
     public virtual void EnterState() { }
-
     public virtual void ExitState() { }
-
 }
