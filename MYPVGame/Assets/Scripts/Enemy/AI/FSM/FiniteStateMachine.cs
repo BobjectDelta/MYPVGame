@@ -39,19 +39,41 @@ public class FiniteStateMachine : MonoBehaviour
 
     public void SelectState() 
     {
+        Formation formation = gameObject.GetComponent<Formation>();
         if (_enemyRadar.isTargetVisible) 
         {
-            if (_enemyRadar.GetRadarEnemy() != null)
-                _currentState = _fleeState;
+            if (_enemyRadar.GetRadarEnemy() != null
+                && formation.GetFormationSize() < 3
+                && formation.GetFormationId() != _enemyRadar.GetRadarEnemy().GetComponent<Enemy>().formation.GetFormationId()
+                )
+                // _currentState = _fleeState;
+                SetFormationState(_fleeState, formation);
             else
-                _currentState = _attackState;
+                // _currentState = _attackState;
+                SetFormationState(_attackState, formation);
+                
         }
         else
         {
-            _currentState = _idleState;
+            // _currentState = _idleState;
+            SetFormationState(_idleState, formation);
         }
 
         _currentState.EnterState();
+    }
+    
+    public void SetFormationState(BaseState state, Formation formation)
+    {
+        foreach (Enemy enemy in formation.GetEnemies())
+        {
+            enemy.GetComponent<FiniteStateMachine>().SetCurrentState(state);
+        }
+    }
+
+    private void SetCurrentState(BaseState state)
+    {
+        _previousState = _currentState;
+        _currentState = state;
     }
 
     private void OnDrawGizmos()

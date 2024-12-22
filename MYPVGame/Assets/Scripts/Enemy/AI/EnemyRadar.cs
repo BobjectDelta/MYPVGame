@@ -81,12 +81,14 @@ public class EnemyRadar : MonoBehaviour
 
     public List<Collider2D> GetVisibleEnemyColliders()
     {
-        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius/2, _enemyLayer);
+        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius, _enemyLayer);
         List<Collider2D> visibleColliders = new List<Collider2D>();
 
         foreach (Collider2D collider in enemyColliders)
-            if (CheckEnemyVisibility(collider.transform))
+        {
+            // if (CheckEnemyVisibility(collider.transform))
                 visibleColliders.Add(collider);
+        }
 
         return visibleColliders;
     }

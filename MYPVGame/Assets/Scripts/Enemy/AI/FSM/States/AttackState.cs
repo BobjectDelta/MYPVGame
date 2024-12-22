@@ -7,7 +7,7 @@ public class AttackState : BaseState
     private ProjectileShooting _projectileShooting;
     public override void EnterState()
     {
-        Debug.Log("Entered: Attack");
+        // Debug.Log("Entered: Attack");
     }
 
     public override void Execute()
@@ -21,7 +21,7 @@ public class AttackState : BaseState
 
     public override void ExitState()
     {
-        Debug.Log("Exited: Attack");
+        // Debug.Log("Exited: Attack");
         npcMovement.StopMovement();
     }
 

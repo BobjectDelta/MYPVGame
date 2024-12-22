@@ -7,7 +7,7 @@ public class FleeState : BaseState
          
     public override void EnterState()
     {
-        Debug.Log("Entered: Flee");
+        // Debug.Log("Entered: Flee");
     }
 
     public override void Execute()
@@ -21,8 +21,9 @@ public class FleeState : BaseState
 
     public override void ExitState()
     {
-        Debug.Log("Exited: Flee");
+        // Debug.Log("Exited: Flee");
         //formation.Merge(enemyRadar.GetRadarEnemy().gameObject.GetComponent<Formation>());
+        formation.Merge();
         npcMovement.StopMovement();
     }
     

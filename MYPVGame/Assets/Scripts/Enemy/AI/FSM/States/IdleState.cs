@@ -7,7 +7,7 @@ public class IdleState : BaseState
 
     public override void EnterState()
     {
-        Debug.Log("Entered: Idle");
+        // Debug.Log("Entered: Idle");
     }
 
     public override void Execute()
@@ -18,6 +18,6 @@ public class IdleState : BaseState
 
     public override void ExitState()
     {
-        Debug.Log("Exited: Idle");
+        // Debug.Log("Exited: Idle");
     }
 }

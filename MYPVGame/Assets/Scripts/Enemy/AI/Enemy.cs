@@ -36,4 +36,14 @@ public class Enemy : MonoBehaviour
         DecrementEnemiesToDefeat();
         gameObject.GetComponent<DropPowerUpOnDestruction>().DropPowerUp();
     }
+    
+    private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        if (Application.isPlaying && formation != null)
+        {
+            UnityEditor.Handles.Label(transform.position + Vector3.right * 2, formation.GetFormationId().ToString());
+        }
+#endif
+    }
 }
