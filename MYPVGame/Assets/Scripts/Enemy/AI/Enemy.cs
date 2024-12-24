@@ -11,6 +11,11 @@ public class Enemy : MonoBehaviour
         formation = gameObject.AddComponent<Formation>();
         _enemyRadar = GetComponentInChildren<EnemyRadar>();
         _fsm = gameObject.AddComponent<FiniteStateMachine>();
+        
+        if (_enemyRadar != null)
+        {
+            _enemyRadar.SetFormationRadar(gameObject.GetComponent<FormationRadar>());
+        }
     }
 
     /*private void FixedUpdate()
@@ -34,6 +39,9 @@ public class Enemy : MonoBehaviour
     public void DoBeforeDestruction()
     {
         DecrementEnemiesToDefeat();
+        if (formation != null)
+            formation.RemoveEnemyFromFormation(this);
+        gameObject.GetComponent<FormationRadar>().UnregisterRadar(gameObject.GetComponent<EnemyRadar>());
         gameObject.GetComponent<DropPowerUpOnDestruction>().DropPowerUp();
     }
     

@@ -37,8 +37,8 @@ public class Health : MonoBehaviour
     {
         if (gameObject.CompareTag("Player") && GameManagement.gameManagerInstance != null)
             GameManagement.gameManagerInstance.GameOver();
-        if (gameObject.GetComponent<EnemyAI>() != null)
-            gameObject.GetComponent<EnemyAI>().DoBeforeDestruction();
+        if (gameObject.GetComponent<Enemy>() != null)
+            gameObject.GetComponent<Enemy>().DoBeforeDestruction();
         Destroy(gameObject);
     }
 

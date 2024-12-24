@@ -75,17 +75,20 @@ public class FormationRadar : MonoBehaviour
 
     public void UnregisterRadar(EnemyRadar radar)
     {
-        _memberRadars.Remove(radar);
+        if (_memberRadars.Contains(radar))
+        {
+            _memberRadars.Remove(radar);   
+        }
     }
 
     private void OnDrawGizmos()
     {
 #if UNITY_EDITOR
         if (Application.isPlaying && _sharedPlayerTarget)
-        {           
-            UnityEditor.Handles.Label(this.transform.position + Vector3.up * 2, _sharedPlayerTarget.position + " " + _isTargetVisibleToFormation);            
+        {
+            UnityEditor.Handles.Label(this.transform.position + Vector3.up * 2, _sharedPlayerTarget.position + " " + _isTargetVisibleToFormation);
+            UnityEditor.Handles.Label(this.transform.position + Vector3.down * 2, _memberRadars.Count.ToString());
         }
 #endif
     }
 }
-

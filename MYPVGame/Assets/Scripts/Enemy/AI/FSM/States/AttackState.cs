@@ -14,11 +14,22 @@ public class AttackState : BaseState
 
     public override void Execute()
     {
-        npcMovement.ApproachPosition(enemyRadar.GetRadarTarget().position);
-        _projectileShooting.Shoot();
-
-        if (!enemyRadar.isTargetVisible)
+        // npcMovement.ApproachPosition(enemyRadar.GetRadarTarget().position);
+        // _projectileShooting.Shoot();
+        //
+        // if (!enemyRadar.isTargetVisible)
+        //     isComplete = true;
+        
+        Transform target = enemyRadar.GetRadarTarget();
+        
+        if (!enemyRadar.isTargetVisible || target == null)
+        {
             isComplete = true;
+            return;
+        }
+        
+        npcMovement.ApproachPosition(target.position);
+        _projectileShooting.Shoot();
     }
 
     public override void ExitState()

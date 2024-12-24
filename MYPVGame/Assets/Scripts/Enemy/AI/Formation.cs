@@ -8,7 +8,6 @@ public class Formation : MonoBehaviour
     [SerializeField] private int id = ++_idCounter;
     private List<Enemy> _enemies { get; set; }
     private FormationRadar _formationRadar;
-    // private Enemy _enemyToMerge = null;
     private List<Enemy> _enemiesToMerge = new();
 
     private void Awake()
@@ -77,7 +76,10 @@ public class Formation : MonoBehaviour
         {
             foreach (Enemy enemy in _enemiesToMerge)
             {
-                UnityEditor.Handles.Label(enemy.transform.position + Vector3.right * 2, "Merged to f. : " + id);
+                if (enemy != null)
+                {
+                    UnityEditor.Handles.Label(enemy.transform.position + Vector3.right * 2, "Merged to f. : " + id);
+                }
             }
         }
 #endif
@@ -91,5 +93,17 @@ public class Formation : MonoBehaviour
     public IEnumerable GetEnemies()
     {
         return _enemies;
+    }
+
+    public void RemoveEnemyFromFormation(Enemy enemy)
+    {
+        if (_enemies.Contains(enemy))
+        {
+            _enemies.Remove(enemy);
+        }
+        if (_enemiesToMerge.Contains(enemy))
+        {
+            _enemiesToMerge.Remove(enemy);
+        }
     }
 }

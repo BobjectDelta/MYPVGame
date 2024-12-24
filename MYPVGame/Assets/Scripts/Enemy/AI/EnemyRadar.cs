@@ -14,10 +14,10 @@ public class EnemyRadar : MonoBehaviour
 
     [field: SerializeField] public bool isTargetVisible { get; private set; }
     [field: SerializeField] public bool isAllyVisible { get; private set; }
+    [SerializeField] private FormationRadar _formationRadar;
     private bool _hasPreviousPosition;
 
     private Vector3 _previousTargetPosition = Vector3.zero;
-    [SerializeField] private FormationRadar _formationRadar;
 
     private void Start()
     {
@@ -30,14 +30,14 @@ public class EnemyRadar : MonoBehaviour
         UpdateTargetVisibility(_playerTarget);
     }
 
-    public void SetFormationRadar(FormationRadar radar)
+    public void SetFormationRadar(FormationRadar formationRadar)
     {
         if (_formationRadar != null)
         {
             _formationRadar.UnregisterRadar(this);
         }
-        _formationRadar = radar;
-        if (radar != null)
+        _formationRadar = formationRadar;
+        if (formationRadar != null)
         {
             _formationRadar.RegisterRadar(this);
         }
@@ -47,62 +47,58 @@ public class EnemyRadar : MonoBehaviour
     {
         isTargetVisible = formationVisibility;
         _playerTarget = formationTarget;
-    }
-    
-    private void UpdateTargetVisibility(Transform target)
-    {
-            // Check if we're getting data from formation radar
-        Transform formationTarget = _formationRadar.GetSharedPlayerTarget();
-        bool formationVisibility = _formationRadar.IsTargetVisibleToFormation();
 
-        if (formationTarget != null && formationVisibility)
+        if (formationTarget != null)
         {
-            // Use formation's shared visibility data
-            _playerTarget = formationTarget;
-            isTargetVisible = true;
             _previousTargetPosition = formationTarget.position;
             _hasPreviousPosition = true;
         }
-        else // Original individual radar logic
+        else
         {
-            if (target != null)
+            _previousTargetPosition = Vector3.zero;
+            _hasPreviousPosition = false;
+        }
+    }
+
+    private void UpdateTargetVisibility(Transform target)
+    {
+        if (target != null)
+        {
+            var currentVisibility = CheckTargetVisibility(target);
+
+            if (!currentVisibility && _hasPreviousPosition)
             {
-                var currentVisibility = CheckTargetVisibility(target);
-
-                if (!currentVisibility && _hasPreviousPosition)
+                var distanceToPreviousPosition =
+                    Vector2.Distance(transform.position, _previousTargetPosition); //optimize
+                if (distanceToPreviousPosition <= 2 * 0.8f)
                 {
-                    var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition); //optimize
-                    if (distanceToPreviousPosition <= 2 * 0.8f)
-                    {
-                        isTargetVisible = true;
-                        return;
-                    }
-
-                    _hasPreviousPosition = false;
+                    isTargetVisible = true;
+                    return;
                 }
 
-                isTargetVisible = currentVisibility;
+                _hasPreviousPosition = false;
+            }
 
-                if (isTargetVisible)
-                {
-                    _previousTargetPosition = target.position;
-                    _hasPreviousPosition = true;
+            isTargetVisible = currentVisibility;
 
-                    // Update formation radar with our detection                      
-                    _formationRadar.UpdateSharedTarget(_playerTarget, true);
-                }
-                else
-                {
-                    // Inform formation radar that this member lost sight
-                    _formationRadar.UpdateSharedTarget(null, false);
+            if (isTargetVisible)
+            {
+                _previousTargetPosition = target.position;
+                _hasPreviousPosition = true;
 
-                }
+                // Update formation radar with our detection                      
+                _formationRadar.UpdateSharedTarget(target, true);
             }
             else
             {
-                // No target in sight, update formation                
+                // Inform formation radar that this member lost sight
                 _formationRadar.UpdateSharedTarget(null, false);
             }
+        }
+        else
+        {
+            // No target in sight, update formation                
+            _formationRadar.UpdateSharedTarget(null, false);
         }
     }
 
@@ -126,17 +122,16 @@ public class EnemyRadar : MonoBehaviour
 
     public List<Collider2D> GetVisibleEnemyColliders()
     {
-        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius, _enemyLayer);
-        List<Collider2D> visibleColliders = new List<Collider2D>();
+        var enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius, _enemyLayer);
+        var visibleColliders = new List<Collider2D>();
 
-        foreach (Collider2D collider in enemyColliders)
-        {
+        foreach (var collider in enemyColliders)
             // if (CheckEnemyVisibility(collider.transform))
-                visibleColliders.Add(collider);
-        }
+            visibleColliders.Add(collider);
 
         return visibleColliders;
     }
+
     private IEnumerator DetectionCoroutine()
     {
         yield return new WaitForSeconds(_radarCheckInterval);
@@ -147,7 +142,7 @@ public class EnemyRadar : MonoBehaviour
     private void DetectTargets()
     {
         DetectTarget(_playerTarget, _playerLayer);
-        DetectTarget(_enemyTarget, _enemyLayer);    //TODO: Detect a new enemy ally after killing the old one
+        DetectTarget(_enemyTarget, _enemyLayer); //TODO: Detect a new enemy ally after killing the old one
     }
 
     /*private void DetectPlayerTarget()
@@ -192,7 +187,8 @@ public class EnemyRadar : MonoBehaviour
     {
         //var col = Physics2D.OverlapCircle()       
         var collision = Physics2D.OverlapCircle(transform.position, _radarRadius, targetLayerMask);
-        if (collision != null && collision != GetComponentInParent<Collider2D>())// Physics2D.OverlapPoint(transform.position))
+        if (collision != null &&
+            collision != GetComponentInParent<Collider2D>()) // Physics2D.OverlapPoint(transform.position))
             SetRadarTarget(collision.transform, targetLayerMask);
     }
 
@@ -215,17 +211,51 @@ public class EnemyRadar : MonoBehaviour
         if (target == null || target.gameObject.activeSelf == false ||
             Vector2.Distance(transform.position, target.position) > _radarRadius + 1)
             SetRadarTarget(null, targetLayerMask);
-
     }
 
     // Old API for backwards compatibility, TODO: REMOVE
+    // public Transform GetRadarTarget()
+    // {
+    //     return GetRadarPlayer();
+    // }
+    //
+    // public Transform GetRadarPlayer()
+    // {
+    //     return _playerTarget;
+    // }
+    
+    // public Transform GetRadarTarget()
+    // {
+    //     if (_formationRadar != null && _formationRadar.IsTargetVisibleToFormation())
+    //     {
+    //         return _formationRadar.GetSharedPlayerTarget();
+    //     }
+    //     return GetRadarPlayer();
+    // }
+    
     public Transform GetRadarTarget()
     {
+        if (_formationRadar != null && _formationRadar.IsTargetVisibleToFormation())
+        {
+            Transform sharedTarget = _formationRadar.GetSharedPlayerTarget();
+            if (sharedTarget != null)
+            {
+                _playerTarget = sharedTarget;
+                isTargetVisible = true;
+                return sharedTarget;
+            }
+            // return sharedTarget;
+        }
         return GetRadarPlayer();
     }
 
     public Transform GetRadarPlayer()
     {
+        if (_playerTarget == null || !_playerTarget.gameObject.activeInHierarchy)
+        {
+            isTargetVisible = false;
+            return null;
+        }
         return _playerTarget;
     }
 
@@ -248,13 +278,18 @@ public class EnemyRadar : MonoBehaviour
             }
             else
                 //if (target != this.GetComponentInParent<Transform>())
+            {
                 _enemyTarget = target;
+            }
         }
-        else 
-            if (targetLayerMask == _playerLayer)
-                _playerTarget = target;
-            else
-                _enemyTarget = target;
+        else if (targetLayerMask == _playerLayer)
+        {
+            _playerTarget = target;
+        }
+        else
+        {
+            _enemyTarget = target;
+        }
     }
 
     /*private void SetRadarPlayer(Transform player)
