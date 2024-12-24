@@ -6,8 +6,8 @@ public class FormationRadar : MonoBehaviour
 {
     private Formation _formation;
     private List<EnemyRadar> _memberRadars = new List<EnemyRadar>();
-    private Transform _sharedPlayerTarget;
-    private bool _isTargetVisibleToFormation;
+    [SerializeField] private Transform _sharedPlayerTarget;
+    [SerializeField] private bool _isTargetVisibleToFormation;
 
     public Transform GetSharedPlayerTarget()
     {
@@ -76,6 +76,16 @@ public class FormationRadar : MonoBehaviour
     public void UnregisterRadar(EnemyRadar radar)
     {
         _memberRadars.Remove(radar);
+    }
+
+    private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        if (Application.isPlaying && _sharedPlayerTarget)
+        {           
+            UnityEditor.Handles.Label(this.transform.position + Vector3.up * 2, _sharedPlayerTarget.position + " " + _isTargetVisibleToFormation);            
+        }
+#endif
     }
 }
 

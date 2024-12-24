@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class IdleState : BaseState
 {
-    private float _patrolTimer = 0f;
+    /*private float _patrolTimer = 0f;
     private Vector3 _patrolDestination;
-    private const float PATROL_INTERVAL = 3f;
+    private const float PATROL_INTERVAL = 3f;*/
     
     public override void EnterState()
     {
-        SetNewPatrolDestination();
+        //SetNewPatrolDestination();
     }
 
     public override void Execute()
@@ -52,14 +52,14 @@ public class IdleState : BaseState
 
     public override void ExitState()
     {
-        npcMovement.StopMovement();
+        //npcMovement.StopMovement();
     }
 
-    private void SetNewPatrolDestination()
+    /*private void SetNewPatrolDestination()
     {
         // Random point within reasonable radius
         float radius = 5f;
         Vector2 randomPoint = Random.insideUnitCircle * radius;
         _patrolDestination = npcMovement.transform.position + new Vector3(randomPoint.x, randomPoint.y, 0);
-    }
+    }*/
 }

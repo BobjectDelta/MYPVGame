@@ -20,7 +20,7 @@ public class NPCMovement : MonoBehaviour
     private void FixedUpdate()
     {
         transform.rotation = SmoothRotation(transform.rotation, _targetRotation);
-        _rigidbody.velocity = _movementVector * _moveSpeed;
+        _rigidbody.velocity = _movementVector.normalized * _moveSpeed;
     }
 
     public void ApproachPosition(Vector3 targetPosition)

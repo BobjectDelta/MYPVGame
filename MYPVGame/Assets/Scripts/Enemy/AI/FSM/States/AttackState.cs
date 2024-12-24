@@ -6,8 +6,33 @@ public class AttackState : BaseState
 {
     private ProjectileShooting _projectileShooting;
     private Vector3 _formationOffset = Vector3.zero;
-    
+
     public override void EnterState()
+    {
+        Debug.Log("Entered: Attack");
+    }
+
+    public override void Execute()
+    {
+        npcMovement.ApproachPosition(enemyRadar.GetRadarTarget().position);
+        _projectileShooting.Shoot();
+
+        if (!enemyRadar.isTargetVisible)
+            isComplete = true;
+    }
+
+    public override void ExitState()
+    {
+        Debug.Log("Exited: Attack");
+        npcMovement.StopMovement();
+    }
+
+    public void SetShootingComponent(ProjectileShooting shooting)
+    {
+        _projectileShooting = shooting;
+    }
+
+    /*public override void EnterState()
     {
         // Calculate formation position offset based on position in formation
         if (formation.GetFormationSize() > 1)
@@ -60,5 +85,5 @@ public class AttackState : BaseState
         float xOffset = (index % 2 == 0 ? 1 : -1) * (index + 1) * 1.5f;
         float yOffset = -index * 1.0f;
         return new Vector3(xOffset, yOffset, 0);
-    }
+    }*/
 }

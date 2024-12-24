@@ -17,10 +17,11 @@ public class EnemyRadar : MonoBehaviour
     private bool _hasPreviousPosition;
 
     private Vector3 _previousTargetPosition = Vector3.zero;
-    private FormationRadar _formationRadar;
+    [SerializeField] private FormationRadar _formationRadar;
 
     private void Start()
     {
+        _formationRadar = gameObject.GetComponentInParent<FormationRadar>();
         StartCoroutine(DetectionCoroutine()); //TODO: Fix MissingReferenceException after killing an enemy inside other's radar range
     }
 
@@ -50,68 +51,57 @@ public class EnemyRadar : MonoBehaviour
     
     private void UpdateTargetVisibility(Transform target)
     {
-        if (_formationRadar != null)
-        {
             // Check if we're getting data from formation radar
-            Transform formationTarget = _formationRadar.GetSharedPlayerTarget();
-            bool formationVisibility = _formationRadar.IsTargetVisibleToFormation();
-            
-            if (formationTarget != null && formationVisibility)
+        Transform formationTarget = _formationRadar.GetSharedPlayerTarget();
+        bool formationVisibility = _formationRadar.IsTargetVisibleToFormation();
+
+        if (formationTarget != null && formationVisibility)
+        {
+            // Use formation's shared visibility data
+            _playerTarget = formationTarget;
+            isTargetVisible = true;
+            _previousTargetPosition = formationTarget.position;
+            _hasPreviousPosition = true;
+        }
+        else // Original individual radar logic
+        {
+            if (target != null)
             {
-                // Use formation's shared visibility data
-                _playerTarget = formationTarget;
-                isTargetVisible = true;
-                _previousTargetPosition = formationTarget.position;
-                _hasPreviousPosition = true;
-            }
-            else // Original individual radar logic
-            {
-                if (target != null)
+                var currentVisibility = CheckTargetVisibility(target);
+
+                if (!currentVisibility && _hasPreviousPosition)
                 {
-                    var currentVisibility = CheckTargetVisibility(target);
-
-                    if (!currentVisibility && _hasPreviousPosition)
+                    var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition); //optimize
+                    if (distanceToPreviousPosition <= 2 * 0.8f)
                     {
-                        var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
-                        if (distanceToPreviousPosition <= 2 * 0.8f)
-                        {
-                            isTargetVisible = true;
-                            return;
-                        }
-
-                        _hasPreviousPosition = false;
+                        isTargetVisible = true;
+                        return;
                     }
 
-                    isTargetVisible = currentVisibility;
+                    _hasPreviousPosition = false;
+                }
 
-                    if (isTargetVisible)
-                    {
-                        _previousTargetPosition = target.position;
-                        _hasPreviousPosition = true;
+                isTargetVisible = currentVisibility;
 
-                        // Update formation radar with our detection
-                        if (_formationRadar != null)
-                        {
-                            _formationRadar.UpdateSharedTarget(_playerTarget, true);
-                        }
-                    }
-                    else
-                    {
-                        // Inform formation radar that this member lost sight
-                        if (_formationRadar != null)
-                        {
-                            _formationRadar.UpdateSharedTarget(null, false);
-                        }
-                    }
+                if (isTargetVisible)
+                {
+                    _previousTargetPosition = target.position;
+                    _hasPreviousPosition = true;
+
+                    // Update formation radar with our detection                      
+                    _formationRadar.UpdateSharedTarget(_playerTarget, true);
                 }
                 else
                 {
-                    // No target in sight, update formation
-                    if (_formationRadar != null)
-                    {
-                        _formationRadar.UpdateSharedTarget(null, false);
-                    }
+                    // Inform formation radar that this member lost sight
+                    _formationRadar.UpdateSharedTarget(null, false);
+
                 }
+            }
+            else
+            {
+                // No target in sight, update formation                
+                _formationRadar.UpdateSharedTarget(null, false);
             }
         }
     }
