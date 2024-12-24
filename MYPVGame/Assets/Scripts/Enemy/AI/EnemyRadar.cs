@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyRadar : MonoBehaviour
@@ -81,14 +82,15 @@ public class EnemyRadar : MonoBehaviour
 
     public List<Collider2D> GetVisibleEnemyColliders()
     {
-        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius/2, _enemyLayer);
-        List<Collider2D> visibleColliders = new List<Collider2D>();
+        List<Collider2D> enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius, _enemyLayer).ToList<Collider2D>();
+        /*List<Collider2D> visibleColliders = new List<Collider2D>();
 
         foreach (Collider2D collider in enemyColliders)
             if (CheckEnemyVisibility(collider.transform))
-                visibleColliders.Add(collider);
+                visibleColliders.Add(collider);*/
 
-        return visibleColliders;
+        Debug.Log(enemyColliders.Count);
+        return enemyColliders;
     }
     private IEnumerator DetectionCoroutine()
     {

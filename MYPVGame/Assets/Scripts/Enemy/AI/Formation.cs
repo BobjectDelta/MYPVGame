@@ -25,7 +25,6 @@ public class Formation : MonoBehaviour
                 {
                     enemy.formation = this;
                 }
-                enemy.formation = this;
             }
         }
         /*if (formationToMerge != this)

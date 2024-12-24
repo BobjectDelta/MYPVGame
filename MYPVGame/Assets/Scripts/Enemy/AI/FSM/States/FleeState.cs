@@ -13,7 +13,10 @@ public class FleeState : BaseState
     public override void Execute()
     {
         if (!enemyRadar.isTargetVisible || enemyRadar.GetRadarEnemy() == null)
+        {
             isComplete = true;
+            return;
+        }
         //npcMovement.FleeFromPosition(enemyRadar.GetRadarTarget().position);
         npcMovement.ApproachPosition(enemyRadar.GetRadarEnemy().position);
         //Debug.Log(enemyRadar.GetRadarEnemy().position);

@@ -37,11 +37,15 @@ public class FiniteStateMachine : MonoBehaviour
         _currentState.Execute();
     }
 
-    public void SelectState() 
+    public void SelectState()
     {
-        if (_enemyRadar.isTargetVisible) 
+        if (_enemyRadar.isTargetVisible)
         {
-            if (_enemyRadar.GetRadarEnemy() != null)
+            /*if (_enemyRadar.GetRadarEnemy() != null)
+                _currentState = _fleeState;
+            else
+                _currentState = _attackState;*/
+            if (_enemyRadar.GetVisibleEnemyColliders().Count < 3)
                 _currentState = _fleeState;
             else
                 _currentState = _attackState;
