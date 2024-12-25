@@ -6,7 +6,7 @@ public class NPCMovement : MonoBehaviour
     [SerializeField] private float _approachThreshhold = 3f;
     [SerializeField] private float _rotationSpeed = 3f;
     [SerializeField] private float _pushForce = 10f;
-    [SerializeField] private float _pushRadius = 1f;
+    [SerializeField] private float _pushRadius = .8f;
     private EnemyRadar _enemyRadar;
 
     private Vector2 _movementVector = Vector2.zero;
