@@ -9,11 +9,44 @@ public class Formation : MonoBehaviour
     private List<Enemy> _enemies { get; set; }
     private FormationRadar _formationRadar;
     private List<Enemy> _enemiesToMerge = new();
+    private const int MAX_FORMATION_SIZE = 7;
 
     private void Awake()
     {
         _enemies = new List<Enemy> { GetComponent<Enemy>() };
         _formationRadar = gameObject.AddComponent<FormationRadar>();
+    }
+    
+    // public Vector3 GetFormationPosition(Enemy enemy)
+    // {
+    //     // int index = _enemies.IndexOf(enemy);
+    //     int index = enemy.formation.GetFormationId();
+    //     Debug.Log(index);
+    //     if (index == -1 || index >= MAX_FORMATION_SIZE)
+    //     {
+    //         return enemy.transform.position;
+    //     }
+    //
+    //     // Leader is at index 0
+    //     if (index == 0)
+    //     {
+    //         return Vector3.zero;
+    //     }
+    //
+    //     // Calculate wing positions
+    //     int side = (index % 2 == 0) ? 1 : -1;
+    //     int row = (index + 1) / 2;
+    //
+    //     // Adjust these values to control V-shape spread
+    //     float xSpread = side * row * 2f;  // Increased from 1.5f for wider spread
+    //     float yOffset = -row * 1.5f;      // Increased from 1.0f for deeper V
+    //
+    //     return new Vector3(xSpread, yOffset, 0);
+    // }
+    
+    public bool CanJoinFormation()
+    {
+        return _enemies.Count < MAX_FORMATION_SIZE;
     }
     
     public bool IsTargetVisibleToFormation()
@@ -50,6 +83,11 @@ public class Formation : MonoBehaviour
 
     private void MergeEnemyToFormation(Enemy enemyToMerge)
     {
+        if (!CanJoinFormation())
+        {
+            return;
+        }
+        
         enemyToMerge.formation = this;
         _enemies.Add(enemyToMerge);
         
