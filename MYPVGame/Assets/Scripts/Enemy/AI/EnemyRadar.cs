@@ -11,7 +11,9 @@ public class EnemyRadar : MonoBehaviour
     [SerializeField] private LayerMask _visionLayer;
     [SerializeField] private Transform _playerTarget;
     [SerializeField] private Transform _enemyTarget;
-
+    [SerializeField] private float _memoryDuration = .5f;
+    private float _timeSinceLastSeen = 0f;
+    
     [field: SerializeField] public bool isTargetVisible { get; private set; }
     [field: SerializeField] public bool isAllyVisible { get; private set; }
     [SerializeField] private FormationRadar _formationRadar;
@@ -60,48 +62,35 @@ public class EnemyRadar : MonoBehaviour
         }
     }
 
-    private void UpdateTargetVisibility(Transform target)
-    {
-        if (target != null)
-        {
+    private void UpdateTargetVisibility(Transform target) {
+        if (target != null) {
             var currentVisibility = CheckTargetVisibility(target);
-
-            if (!currentVisibility && _hasPreviousPosition)
-            {
-                var distanceToPreviousPosition =
-                    Vector2.Distance(transform.position, _previousTargetPosition); //optimize
-                if (distanceToPreviousPosition <= 2 * 0.8f)
-                {
-                    isTargetVisible = true;
-                    return;
-                }
-
-                _hasPreviousPosition = false;
-            }
-
-            isTargetVisible = currentVisibility;
-
-            if (isTargetVisible)
-            {
+            if (currentVisibility) {
+                _timeSinceLastSeen = 0f;
                 _previousTargetPosition = target.position;
                 _hasPreviousPosition = true;
-
-                // Update formation radar with our detection                      
-                _formationRadar.UpdateSharedTarget(target, true);
+                isTargetVisible = true;
+            } else if (_hasPreviousPosition) {
+                _timeSinceLastSeen += Time.deltaTime;
+                if (_timeSinceLastSeen > _memoryDuration) {
+                    isTargetVisible = false;
+                    _hasPreviousPosition = false;
+                } else {
+                    var distanceToPreviousPosition = Vector2.Distance(transform.position, _previousTargetPosition);
+                    isTargetVisible = distanceToPreviousPosition <= 2 * 0.8f;
+                }
             }
-            else
-            {
-                // Inform formation radar that this member lost sight
-                _formationRadar.UpdateSharedTarget(null, false);
-            }
-        }
-        else
-        {
-            // No target in sight, update formation                
-            _formationRadar.UpdateSharedTarget(null, false);
         }
     }
 
+    public void ClearTarget()
+    {
+        _playerTarget = null;
+        isTargetVisible = false;
+        _hasPreviousPosition = false;
+        _previousTargetPosition = Vector3.zero;
+    }
+    
     private bool CheckTargetVisibility(Transform target)
     {
         var raycastHitInfo = Physics2D.Raycast(transform.position, target.position - transform.position, _radarRadius,
@@ -244,7 +233,6 @@ public class EnemyRadar : MonoBehaviour
                 isTargetVisible = true;
                 return sharedTarget;
             }
-            // return sharedTarget;
         }
         return GetRadarPlayer();
     }
