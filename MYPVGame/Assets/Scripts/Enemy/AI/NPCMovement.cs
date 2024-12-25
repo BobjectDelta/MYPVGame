@@ -23,7 +23,7 @@ public class NPCMovement : MonoBehaviour
     {
         transform.rotation = SmoothRotation(transform.rotation, _targetRotation);
         PushAwayFromNearbyEnemies();
-        _rigidbody.velocity = _movementVector * _moveSpeed;
+        _rigidbody.velocity = _movementVector.normalized * _moveSpeed;
     }
 
     public void ApproachPosition(Vector3 targetPosition)
@@ -58,6 +58,11 @@ public class NPCMovement : MonoBehaviour
         _movementVector = Vector2.zero;
     }
 
+    public float GetMovementSpeed()
+    {
+        return _moveSpeed;
+    }
+    
     private float GetChaseAngle(Vector3 targetPosition)
     {
         return Vector3.SignedAngle(Vector3.up, (targetPosition - transform.position).normalized, Vector3.forward);

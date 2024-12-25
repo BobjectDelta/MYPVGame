@@ -7520,13 +7520,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefabs:
-  - {fileID: 5696857239007117707, guid: 42cb1803686466843a580554f186f982, type: 3}
-  - {fileID: 8280552310027931739, guid: a0b102538adeb254a96133a6ee5df964, type: 3}
-  - {fileID: 7345134201387080713, guid: 826d6c7b6feb23440929235e6bb7cc2e, type: 3}
-  - {fileID: 4501955112379576984, guid: 5eb7c7a14e245094093f515318a835c2, type: 3}
-  - {fileID: 8782261246168496400, guid: a11f36cea454af64ebf0608195a134dd, type: 3}
-  - {fileID: 2708641074889422035, guid: 5601ae4faf9717f4c99c1500d309e833, type: 3}
-  - {fileID: 949303645576729901, guid: 6ee4d70ad77d7a14eb2f480fe6f4b6d1, type: 3}
+  - {fileID: 9176564042700558916, guid: a71b572b0f6ef1149bef59485442af51, type: 3}
+  - {fileID: 7028567611061154154, guid: 61aa76c36f3f358489ce8473809aae57, type: 3}
+  - {fileID: 4748225713272538524, guid: f377e79c1f72dac4d91f1a9b060d6dc4, type: 3}
+  - {fileID: 4709152529380309140, guid: bb78b85e134acaa4f9963b0c28831e0d, type: 3}
   _playerPrefabs:
   - {fileID: 5697147717317841436, guid: 64216315e1eaf2f43b11da21a59bd42c, type: 3}
   - {fileID: 5659431917602391427, guid: 973ae2a654a452943bdcfb1eb7d15ffa, type: 3}

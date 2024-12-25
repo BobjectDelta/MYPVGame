@@ -12,10 +12,10 @@ public class AttackState : BaseState
 
     public override void Execute()
     {
-        npcMovement.ApproachPosition(enemyRadar.GetRadarTarget().position);
+        npcMovement.ApproachPosition(enemyRadar.GetRadarPlayer().position);
         _projectileShooting.Shoot();
 
-        if (!enemyRadar.isTargetVisible)
+        if (!enemyRadar.isTargetVisible || (health.GetHealth() < health.GetMaxHealth() / 2 && enemyRadar.GetVisibleEnemyColliders().Count < 3))
             isComplete = true;
     }
 

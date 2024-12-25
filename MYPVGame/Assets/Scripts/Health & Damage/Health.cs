@@ -74,6 +74,11 @@ public class Health : MonoBehaviour
         return _health;
     }
 
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
+    }
+
     public bool GetIsInvincible()
     {
         return _isInvincible;
