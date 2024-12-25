@@ -8,7 +8,7 @@ public class IdleState : BaseState
     private Vector3 _patrolDestination;
     private const float PATROL_INTERVAL = 3f;*/
     // public List<Vector3> targetPositions = new() // get 
-    public List<Vector3> TargetPositions { get; } = new();
+    // public List<Vector3> TargetPositions { get; } = new();
 
     public override void EnterState()
     {

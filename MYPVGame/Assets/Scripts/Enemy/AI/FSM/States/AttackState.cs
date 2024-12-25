@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Check infinity range bug cases.
 public class AttackState : BaseState
 {
     private ProjectileShooting _projectileShooting;

@@ -19,6 +19,8 @@ public class FleeState : BaseState
             isComplete = true;
             return;
         }
+        
+        npcMovement.ApproachPosition(enemyRadar.GetRadarEnemy().position);
 
         // Transform allyTarget = enemyRadar.GetRadarEnemy();
         // Vector3 directionToAlly = allyTarget.position - npcMovement.transform.position;

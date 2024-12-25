@@ -40,26 +40,29 @@ public class FiniteStateMachine : MonoBehaviour
     public void SelectState() 
     {
         Formation formation = gameObject.GetComponent<Formation>();
+        BaseState newState;
         if (_enemyRadar.isTargetVisible) 
         {
             if (_enemyRadar.GetRadarEnemy() != null
                 && formation.GetFormationSize() < 3
                 && formation.GetFormationId() != _enemyRadar.GetRadarEnemy().GetComponent<Enemy>().formation.GetFormationId()
                 )
-                // _currentState = _fleeState;
-                SetFormationState(_fleeState, formation);
+                newState = _fleeState;
             else
-                // _currentState = _attackState;
-                SetFormationState(_attackState, formation);
+                newState = _attackState;
                 
         }
         else
         {
-            // _currentState = _idleState;
-            SetFormationState(_idleState, formation);
+            newState = _idleState;
         }
 
-        _currentState.EnterState();
+        // _currentState.EnterState();
+        if (newState.GetType() != _currentState.GetType()) {
+            _currentState.ExitState();
+            newState.EnterState();
+            SetCurrentState(newState);
+        }
     }
     
     public void SetFormationState(BaseState state, Formation formation)
@@ -82,6 +85,12 @@ public class FiniteStateMachine : MonoBehaviour
         if (Application.isPlaying && _currentState != null)
         {
             UnityEditor.Handles.Label(transform.position, _currentState.ToString());
+            // foreach (Vector3 targetPos in ((IdleState)_idleState).TargetPositions)
+            // {
+            //     Gizmos.color = Color.green;
+            //     Gizmos.DrawSphere(targetPos, 0.5f);
+            // }
+            // ((IdleState)_idleState).TargetPositions.Clear();
         }
 #endif
     }

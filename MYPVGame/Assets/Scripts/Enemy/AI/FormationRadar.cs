@@ -62,6 +62,11 @@ public class FormationRadar : MonoBehaviour
         foreach (EnemyRadar radar in _memberRadars)
         {
             radar.SyncWithFormation(_isTargetVisibleToFormation, _sharedPlayerTarget);
+            
+            if (!_isTargetVisibleToFormation) 
+            {
+                radar.ClearTarget();
+            }
         }
     }
 
