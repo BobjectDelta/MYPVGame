@@ -19,6 +19,11 @@ public class EnemyRadar : MonoBehaviour
 
     private Vector3 _previousTargetPosition = Vector3.zero;
 
+    public LayerMask GetEnemyLayerMask()
+    {
+        return _enemyLayer;
+    }
+    
     private void Start()
     {
         StartCoroutine(DetectionCoroutine()); //TODO: Fix MissingReferenceException after killing an enemy inside other's radar range
