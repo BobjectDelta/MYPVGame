@@ -10,6 +10,7 @@ public class FleeState : BaseState
     public override void EnterState()
     {
         Debug.Log("Entered: Flee");
+        enemy.IncrementEscapeCount();
         /*_fleeTime = 0f;
         _fleeTimer = 10f / npcMovement.GetMovementSpeed();*/
     }

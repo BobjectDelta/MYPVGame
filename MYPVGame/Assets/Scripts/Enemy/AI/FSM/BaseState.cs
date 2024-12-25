@@ -11,12 +11,13 @@ public abstract class BaseState
     protected Enemy enemy;
     protected Formation formation { get; private set; }
 
-    public void Setup(EnemyRadar enemyRadar, NPCMovement npcMovement, Health health, Formation formation)
+    public void Setup(EnemyRadar enemyRadar, NPCMovement npcMovement, Health health, Formation formation, Enemy enemy)
     {
         this.enemyRadar = enemyRadar;
         this.npcMovement = npcMovement;
         this.health = health;
         this.formation = formation;
+        this.enemy = enemy;
     }
 
 
