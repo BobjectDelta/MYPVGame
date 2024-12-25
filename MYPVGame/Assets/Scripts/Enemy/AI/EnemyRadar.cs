@@ -56,10 +56,10 @@ public class EnemyRadar : MonoBehaviour
             }
         }
 
-        //if (_enemyTarget != null) 
-        //{ 
-        //    isAllyVisible = CheckTargetVisibility(_enemyTarget);
-        //}
+        if (_enemyTarget != null)      
+            isAllyVisible = CheckEnemyVisibility(_enemyTarget);       
+        else
+            isAllyVisible = false;
     }
 
     private bool CheckTargetVisibility(Transform target)
@@ -83,14 +83,14 @@ public class EnemyRadar : MonoBehaviour
     public List<Collider2D> GetVisibleEnemyColliders()
     {
         List<Collider2D> enemyColliders = Physics2D.OverlapCircleAll(transform.position, _radarRadius, _enemyLayer).ToList<Collider2D>();
-        /*List<Collider2D> visibleColliders = new List<Collider2D>();
+        List<Collider2D> visibleColliders = new List<Collider2D>();
 
         foreach (Collider2D collider in enemyColliders)
             if (CheckEnemyVisibility(collider.transform))
-                visibleColliders.Add(collider);*/
+                visibleColliders.Add(collider);
 
         Debug.Log(enemyColliders.Count);
-        return enemyColliders;
+        return visibleColliders;
     }
     private IEnumerator DetectionCoroutine()
     {
@@ -189,6 +189,11 @@ public class EnemyRadar : MonoBehaviour
         return _enemyTarget;
     }
 
+    public Vector3 GetLastPlayerPosition()
+    {
+        return _previousTargetPosition;
+    }
+
     private void SetRadarTarget(Transform target, LayerMask targetLayerMask)
     {
         if (target)
@@ -201,16 +206,22 @@ public class EnemyRadar : MonoBehaviour
                 _hasPreviousPosition = false;
                 _previousTargetPosition = Vector3.zero;
             }
-            else
-                //if (target != this.GetComponentInParent<Transform>())
-                _enemyTarget = target;
+            else          
+                _enemyTarget = target;          
         }
-        else 
-            if (targetLayerMask == _playerLayer)
-                _playerTarget = target;
-            else
-                _enemyTarget = target;
+        else if (targetLayerMask == _playerLayer)
+            _playerTarget = target;
+        else        
+            _enemyTarget = target;       
     }
+
+    /*private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        if (Application.isPlaying)
+            UnityEditor.Handles.Label(gameObject.transform.position, isAllyVisible.ToString());
+#endif
+    }*/
 
     /*private void SetRadarPlayer(Transform player)
     {

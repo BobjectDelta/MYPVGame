@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class FleeState : BaseState
 {
+    /*private float _fleeTimer = 10f;
+    private float _fleeTime = 0f;*/
          
     public override void EnterState()
     {
         Debug.Log("Entered: Flee");
+        /*_fleeTime = 0f;
+        _fleeTimer = 10f / npcMovement.GetMovementSpeed();*/
     }
 
     public override void Execute()
     {
-        if (!enemyRadar.isTargetVisible || enemyRadar.GetRadarEnemy() == null)
+        if (!enemyRadar.GetRadarPlayer() /*&& _fleeTime >= _fleeTimer*/)
         {
             isComplete = true;
             return;
         }
-        //npcMovement.FleeFromPosition(enemyRadar.GetRadarTarget().position);
-        npcMovement.ApproachPosition(enemyRadar.GetRadarEnemy().position);
-        //Debug.Log(enemyRadar.GetRadarEnemy().position);
+
+        if (enemyRadar.isAllyVisible && enemyRadar.GetVisibleEnemyColliders().Count > 2)
+            npcMovement.ApproachPosition(enemyRadar.GetRadarEnemy().position);
+        else
+            npcMovement.FleeFromPosition(enemyRadar.GetLastPlayerPosition());
+
+        //_fleeTime += Time.deltaTime;
     }
 
     public override void ExitState()
@@ -28,5 +36,13 @@ public class FleeState : BaseState
         //formation.Merge(enemyRadar.GetRadarEnemy().gameObject.GetComponent<Formation>());
         npcMovement.StopMovement();
     }
-    
+
+    /*public float GetFleeTime()
+    { 
+        return _fleeTime;
+    }
+    public float GetFleeTimer()
+    {
+        return _fleeTimer;
+    }*/
 }

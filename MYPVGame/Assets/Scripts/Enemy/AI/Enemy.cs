@@ -6,24 +6,25 @@ public class Enemy : MonoBehaviour
     private FiniteStateMachine _fsm;
     public Formation formation { get; set; }
 
+    private float _aggressionLevel;
+
     private void Awake()
     {
+        _aggressionLevel = Random.Range(0f, 0.5f);
         formation = gameObject.AddComponent<Formation>();
         _enemyRadar = GetComponentInChildren<EnemyRadar>();
         _fsm = gameObject.AddComponent<FiniteStateMachine>();
     }
 
-    /*private void FixedUpdate()
+    public float GetAggressionLevel()
     {
-        if (_enemyRadar.GetRadarTarget() != null)
-        {
-            if (_enemyRadar.isTargetVisible)
-                if (_shootBehaviour != null)
-                    _shootBehaviour.ExecuteAction(_enemyRadar);
-            if (_chaseBehaviour != null)
-                _chaseBehaviour.ExecuteAction(_enemyRadar);
-        }
-    }*/
+        return _aggressionLevel;
+    }
+
+    public void ChangeAggressionLevel(float delta)
+    {
+        _aggressionLevel += delta;
+    }
 
     private void DecrementEnemiesToDefeat()
     {

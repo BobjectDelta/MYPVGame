@@ -7,12 +7,15 @@ public abstract class BaseState
     public bool isComplete {  get; protected set; }
     protected EnemyRadar enemyRadar;
     protected NPCMovement npcMovement;
+    protected Health health;
+    protected Enemy enemy;
     protected Formation formation { get; private set; }
 
-    public void Setup(EnemyRadar enemyRadar, NPCMovement npcMovement, Formation formation)
+    public void Setup(EnemyRadar enemyRadar, NPCMovement npcMovement, Health health, Formation formation)
     {
         this.enemyRadar = enemyRadar;
         this.npcMovement = npcMovement;
+        this.health = health;
         this.formation = formation;
     }
 
