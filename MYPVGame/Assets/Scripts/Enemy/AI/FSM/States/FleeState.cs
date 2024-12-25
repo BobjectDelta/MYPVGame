@@ -19,16 +19,33 @@ public class FleeState : BaseState
             isComplete = true;
             return;
         }
-        //npcMovement.FleeFromPosition(enemyRadar.GetRadarTarget().position);
-        npcMovement.ApproachPosition(enemyRadar.GetRadarEnemy().position);
-        //Debug.Log(enemyRadar.GetRadarEnemy().position);
+
+        // Transform allyTarget = enemyRadar.GetRadarEnemy();
+        // Vector3 directionToAlly = allyTarget.position - npcMovement.transform.position;
+        // float angle = Mathf.Atan2(directionToAlly.y, directionToAlly.x) * Mathf.Rad2Deg;
+        //
+        // // Get formation position but invert the x-offset for fleeing
+        // Vector3 formationOffset = formation.GetFormationPosition(npcMovement.GetComponent<Enemy>());
+        // formationOffset.x *= -1; // Invert the x-offset to maintain formation while fleeing
+        //
+        // Quaternion rotation = Quaternion.Euler(0, 0, angle - 90);
+        // Vector3 rotatedOffset = rotation * formationOffset;
+        //
+        // // Move towards ally position plus rotated formation offset
+        // Vector3 targetPosition = allyTarget.position + rotatedOffset;
+        //
+        // npcMovement.ApproachPosition(targetPosition);
     }
 
     public override void ExitState()
     {
         Debug.Log("Exited: Flee");
         //formation.Merge(enemyRadar.GetRadarEnemy().gameObject.GetComponent<Formation>());
-        formation.Merge();
+        // formation.Merge();
+        if (formation.CanJoinFormation())
+        {
+            formation.Merge();
+        }
         npcMovement.StopMovement();
     }
 

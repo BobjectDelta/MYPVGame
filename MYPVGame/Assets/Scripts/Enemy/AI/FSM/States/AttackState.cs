@@ -6,30 +6,39 @@ public class AttackState : BaseState
 {
     private ProjectileShooting _projectileShooting;
     private Vector3 _formationOffset = Vector3.zero;
+    // private List<Vector3> _targetPositions = new List<Vector3>();
 
     public override void EnterState()
     {
         Debug.Log("Entered: Attack");
     }
 
-    public override void Execute()
-    {
-        // npcMovement.ApproachPosition(enemyRadar.GetRadarTarget().position);
-        // _projectileShooting.Shoot();
-        //
-        // if (!enemyRadar.isTargetVisible)
-        //     isComplete = true;
-        
+    public override void Execute() {
         Transform target = enemyRadar.GetRadarTarget();
-        
-        if (!enemyRadar.isTargetVisible || target == null)
-        {
+    
+        if (!enemyRadar.isTargetVisible || target == null) {
             isComplete = true;
             return;
         }
+    
+        // Calculate formation position
+        // Vector3 formationPosition = formation.GetFormationPosition(npcMovement.GetComponent<Enemy>());
+        // // _targetPositions.Add(formationPosition);
+        // Vector3 directionToTarget = target.position - npcMovement.transform.position;
+        // float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+        // Quaternion targetRotation = Quaternion.Euler(0, 0, angle - 90);
+        // Vector3 rotatedFormationPosition = targetRotation * formationPosition;
+        // Vector3 targetPosition = target.position + rotatedFormationPosition;
         
+        // _targetPositions.Add(targetPosition);
+        
+        // Move to position
         npcMovement.ApproachPosition(target.position);
-        _projectileShooting.Shoot();
+    
+        // Shoot if we have line of sight
+        if (formation.IsTargetVisibleToFormation() && _projectileShooting != null) {
+            _projectileShooting.Shoot();
+        }
     }
 
     public override void ExitState()
@@ -42,6 +51,11 @@ public class AttackState : BaseState
     {
         _projectileShooting = shooting;
     }
+    
+    // public List<Vector3> GetTargetPositions()
+    // {
+    //     return _targetPositions;
+    // }
 
     /*public override void EnterState()
     {
