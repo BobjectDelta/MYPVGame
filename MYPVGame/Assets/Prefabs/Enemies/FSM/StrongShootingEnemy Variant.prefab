@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4501955112379576984, guid: 5eb7c7a14e245094093f515318a835c2, type: 3}
       propertyPath: m_Name
-      value: StrongShootingEnemy (5) Variant
+      value: StrongShootingEnemy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4572169927394838750, guid: 5eb7c7a14e245094093f515318a835c2, type: 3}
       propertyPath: m_Enabled
@@ -84,6 +84,9 @@ PrefabInstance:
       addedObject: {fileID: 719051757149601884}
     - targetCorrespondingSourceObject: {fileID: 4501955112379576984, guid: 5eb7c7a14e245094093f515318a835c2, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 6543020837724385738}
+    - targetCorrespondingSourceObject: {fileID: 4501955112379576984, guid: 5eb7c7a14e245094093f515318a835c2, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7356194845500971022}
   m_SourcePrefab: {fileID: 100100000, guid: 5eb7c7a14e245094093f515318a835c2, type: 3}
 --- !u!1 &4709152529380309140 stripped
@@ -104,6 +107,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyRadar: {fileID: 0}
+--- !u!114 &6543020837724385738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709152529380309140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98060cd25a98a554f90c4fe669f3ae9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackStyle: 1
 --- !u!114 &7356194845500971022
 MonoBehaviour:
   m_ObjectHideFlags: 0

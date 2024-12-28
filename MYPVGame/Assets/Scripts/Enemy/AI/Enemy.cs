@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
         _aggressionLevel = Random.Range(0f, 0.5f);
         formation = gameObject.AddComponent<Formation>();
         _enemyRadar = GetComponentInChildren<EnemyRadar>();
-        _fsm = gameObject.AddComponent<FiniteStateMachine>();
+        _fsm = gameObject.GetComponent<FiniteStateMachine>();
     }
 
     public float GetAggressionLevel()

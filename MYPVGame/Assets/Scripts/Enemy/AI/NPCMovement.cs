@@ -59,6 +59,11 @@ public class NPCMovement : MonoBehaviour
     {
         return _moveSpeed;
     }
+
+    public void SetApproachThreshhold(float approachThreshhold)
+    {
+        _approachThreshhold = approachThreshhold;
+    }
     private float GetChaseAngle(Vector3 targetPosition)
     {
         return Vector3.SignedAngle(Vector3.up, (targetPosition - transform.position).normalized, Vector3.forward);

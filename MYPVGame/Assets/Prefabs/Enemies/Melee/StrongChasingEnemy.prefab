@@ -49,11 +49,16 @@ MonoBehaviour:
   _playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   _visionLayer:
     serializedVersion: 2
     m_Bits: 1536
-  _target: {fileID: 0}
+  _playerTarget: {fileID: 0}
+  _enemyTarget: {fileID: 0}
   <isTargetVisible>k__BackingField: 0
+  <isAllyVisible>k__BackingField: 0
 --- !u!1 &8280552310027931739
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,11 +71,12 @@ GameObject:
   - component: {fileID: 7968885118154140874}
   - component: {fileID: 4414671644618643472}
   - component: {fileID: 6804229331577623229}
-  - component: {fileID: 5413432075918026214}
-  - component: {fileID: 2972452392071300508}
   - component: {fileID: 7222720455619525384}
   - component: {fileID: 3954328435162545383}
   - component: {fileID: 1339704830043427500}
+  - component: {fileID: -1163725042133108165}
+  - component: {fileID: 2892800871178528612}
+  - component: {fileID: -4781015734054480112}
   m_Layer: 11
   m_Name: StrongChasingEnemy
   m_TagString: Enemy
@@ -224,34 +230,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5413432075918026214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8280552310027931739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d897bc9abca960c4eb2a56422d3e3f39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shootBehaviour: {fileID: 0}
-  _chaseBehaviour: {fileID: 2972452392071300508}
-  _enemyRadar: {fileID: 0}
---- !u!114 &2972452392071300508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8280552310027931739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1926d9f746edd2f4f9010dfb6f9170ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 2
 --- !u!114 &7222720455619525384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 5
+  _knockbackForce: 0
 --- !u!114 &1339704830043427500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,3 +288,44 @@ MonoBehaviour:
   - {fileID: 5386421968475332662, guid: 937d4a706795360489b84586207cdf8f, type: 3}
   - {fileID: 5139028160569792113, guid: 2e5032756ea83714a896f14721d544ef, type: 3}
   - {fileID: 6449289257068193660, guid: 2727fc3040ef7e149a2be33cf6c529d8, type: 3}
+--- !u!114 &-1163725042133108165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280552310027931739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675c545abe615284b9d26a04b4becb3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 1
+  _approachThreshhold: 3
+  _rotationSpeed: 3
+--- !u!114 &2892800871178528612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280552310027931739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dbd21ee06c70464d858decc5be327aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyRadar: {fileID: 0}
+--- !u!114 &-4781015734054480112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8280552310027931739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98060cd25a98a554f90c4fe669f3ae9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackStyle: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,7 +11,8 @@ public class FiniteStateMachine : MonoBehaviour
 
     [SerializeField] private BaseState _idleState = new IdleState();
     [SerializeField] private FleeState _fleeState = new FleeState();
-    private AttackState _attackState = new AttackState();
+    private AttackState _attackState;
+    [SerializeField] AttackStyle _attackStyle;
 
     private EnemyRadar _enemyRadar;
     private Health _health;
@@ -23,8 +25,18 @@ public class FiniteStateMachine : MonoBehaviour
         Formation formation = gameObject.GetComponent<Formation>();
         _idleState.Setup(_enemyRadar, npcMovement, _health, formation);
         _fleeState.Setup(_enemyRadar, npcMovement, _health, formation);
+       
+        if (_attackStyle == AttackStyle.Melee)
+        {
+            _attackState = new AttackState();
+            npcMovement.SetApproachThreshhold(0f);
+        }
+        else
+        {
+            _attackState = new RangedAttackState();
+            _attackState.SetShootingComponent(gameObject.GetComponentInChildren<ProjectileShooting>());
+        }
         _attackState.Setup(_enemyRadar, npcMovement, _health, formation);
-        _attackState.SetShootingComponent(gameObject.GetComponentInChildren<ProjectileShooting>());
         _currentState = _idleState;
     }
 
@@ -67,5 +79,11 @@ public class FiniteStateMachine : MonoBehaviour
 
         }
 #endif
+    }
+
+    public enum AttackStyle
+    {
+        Melee,
+        Ranged
     }
 }

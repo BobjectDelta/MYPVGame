@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : BaseState
+public class RangedAttackState : AttackState
 {
-    //private ProjectileShooting _projectileShooting;
+    private ProjectileShooting _projectileShooting;
     public override void EnterState()
     {
         Debug.Log("Entered: Attack");
@@ -13,7 +13,7 @@ public class AttackState : BaseState
     public override void Execute()
     {
         npcMovement.ApproachPosition(enemyRadar.GetRadarPlayer().position);
-        //_projectileShooting.Shoot();
+        _projectileShooting.Shoot();
 
         if (!enemyRadar.isTargetVisible || (health.GetHealth() < health.GetMaxHealth() / 2 && enemyRadar.GetVisibleEnemyColliders().Count < 3))
             isComplete = true;
@@ -25,5 +25,8 @@ public class AttackState : BaseState
         npcMovement.StopMovement();
     }
 
-    public virtual void SetShootingComponent(ProjectileShooting shooting) { }
+    public override void SetShootingComponent(ProjectileShooting shooting)
+    {
+        _projectileShooting = shooting;
+    }
 }
