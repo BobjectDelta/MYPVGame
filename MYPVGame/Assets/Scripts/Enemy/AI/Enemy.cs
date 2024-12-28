@@ -5,9 +5,27 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyRadar _enemyRadar;
     private FiniteStateMachine _fsm;
     public Formation formation { get; set; }
+    [SerializeField] private float _rabies;
+    private int _escapeCount;
 
     private float _aggressionLevel;
 
+    public float GetRabies()
+    {
+        return _rabies;
+    }
+    
+    public void IncrementEscapeCount()
+    {
+        _escapeCount++;
+        _rabies = CalculateRabies(_escapeCount);
+    }
+    
+    private float CalculateRabies(int n, float upperBound = .7f)
+    {
+        return upperBound / (1 + Mathf.Exp(-n / 4f));
+    }
+    
     private void Awake()
     {
         _aggressionLevel = Random.Range(0f, 0.5f);
@@ -15,17 +33,7 @@ public class Enemy : MonoBehaviour
         _enemyRadar = GetComponentInChildren<EnemyRadar>();
         _fsm = gameObject.GetComponent<FiniteStateMachine>();
     }
-
-    public float GetAggressionLevel()
-    {
-        return _aggressionLevel;
-    }
-
-    public void ChangeAggressionLevel(float delta)
-    {
-        _aggressionLevel += delta;
-    }
-
+    
     private void DecrementEnemiesToDefeat()
     {
         if (GameManagement.gameManagerInstance != null)

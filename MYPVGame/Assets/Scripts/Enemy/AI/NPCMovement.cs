@@ -5,6 +5,8 @@ public class NPCMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private float _approachThreshhold = 3f;
     [SerializeField] private float _rotationSpeed = 3f;
+    [SerializeField] private float _pushForce = 10f;
+    [SerializeField] private float _pushRadius = .8f;
     private EnemyRadar _enemyRadar;
 
     private Vector2 _movementVector = Vector2.zero;
@@ -20,6 +22,7 @@ public class NPCMovement : MonoBehaviour
     private void FixedUpdate()
     {
         transform.rotation = SmoothRotation(transform.rotation, _targetRotation);
+        PushAwayFromNearbyEnemies();
         _rigidbody.velocity = _movementVector.normalized * _moveSpeed;
     }
 
@@ -88,5 +91,19 @@ public class NPCMovement : MonoBehaviour
     private static float QuadraticEaseInOut(float x)
     {
         return x < 0.5f ? 8 * x : -8 * x + 8;
+    }
+
+    private void PushAwayFromNearbyEnemies()
+    {
+        Collider2D[] nearbyEnemies = Physics2D.OverlapCircleAll(transform.position, _pushRadius, _enemyRadar.GetEnemyLayerMask()); // Assuming you have a method to get the enemy layer mask in EnemyRadar
+
+        foreach (Collider2D enemyCollider in nearbyEnemies)
+        {
+            if (enemyCollider != GetComponent<Collider2D>()) // Don't push self
+            {
+                Vector2 pushDirection = (transform.position - enemyCollider.transform.position).normalized;
+                _rigidbody.AddForce(pushDirection * _pushForce);
+            }
+        }
     }
 }
